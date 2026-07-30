@@ -1,0 +1,8 @@
+{
+  "name": "پناه",
+  "description": "پلتفرم واسطه بین مراجعه‌کنندگان و روانشناسان - مسیر، به پناه ختم می‌شود",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
