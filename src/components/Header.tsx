@@ -9,7 +9,15 @@ export function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className={isMenuOpen ? 'has-open-menu' : ''}>
+    <>
+      {/* Mobile Menu Backdrop */}
+      <div
+        className={`mobile-menu-backdrop ${isMenuOpen ? 'active' : ''}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      <header className={isMenuOpen ? 'has-open-menu' : ''}>
       <nav className="header-inner">
         <Link to="/" className="logo">
           پناه
@@ -125,6 +133,7 @@ export function Header() {
         </div>
       </div>
     </header>
+    </>
   );
 }
 
