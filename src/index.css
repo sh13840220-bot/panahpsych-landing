@@ -60,8 +60,8 @@ body {
   background-image:
     radial-gradient(circle at 85% 0%, rgba(182, 193, 168, 0.35) 0%, rgba(182, 193, 168, 0) 50%),
     linear-gradient(180deg, #E2E4DD 0%, #D8DBD0 100%);
-  background-attachment: fixed;
   background-size: cover;
+  background-attachment: scroll;
   color: var(--text-primary);
   line-height: 1.9;
   font-size: 17px;
@@ -82,10 +82,11 @@ body.dark-mode {
     linear-gradient(180deg, #47443E 0%, #3B3833 100%);
 }
 
-body, header, .glass, .mobile-menu, .logo,
-h1, h2, h3, p, a, svg {
-  transition: background-color 300ms ease-out, color 300ms ease-out,
-              border-color 300ms ease-out, stroke 300ms ease-out, fill 300ms ease-out;
+/* Optimized Theme Transition targeting main container surfaces only */
+body, header, .glass, .mobile-menu, button, .nav-auth-btn, .footer-social, .btn-primary {
+  transition: background-color 220ms ease-out,
+              border-color 220ms ease-out,
+              box-shadow 220ms ease-out;
 }
 
 a {
@@ -155,26 +156,25 @@ header {
   position: fixed;
   top: 16px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
   z-index: 100;
   width: calc(100% - 32px);
   max-width: 920px;
   background: var(--header-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
   border: 1px solid var(--header-border);
   border-radius: 9999px;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: background-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              border-radius 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              backdrop-filter 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              -webkit-backdrop-filter 450ms cubic-bezier(0.16, 1, 0.3, 1),
+  transition: background-color 300ms ease-out,
+              border-color 300ms ease-out,
+              box-shadow 300ms ease-out,
+              border-radius 300ms cubic-bezier(0.16, 1, 0.3, 1),
               width 300ms ease-out;
+  will-change: transform, border-radius;
 }
 
 body.dark-mode header {
@@ -187,8 +187,6 @@ body.dark-mode header {
 header.has-open-menu {
   border-radius: 28px;
   background: var(--menu-bg);
-  backdrop-filter: blur(44px) saturate(150%);
-  -webkit-backdrop-filter: blur(44px) saturate(150%);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.15),
     0 8px 24px rgba(0, 0, 0, 0.08),
@@ -207,14 +205,14 @@ body.dark-mode header.has-open-menu {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(40, 40, 35, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(30, 30, 26, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              backdrop-filter 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              -webkit-backdrop-filter 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 .mobile-menu-backdrop.active {
@@ -223,7 +221,7 @@ body.dark-mode header.has-open-menu {
 }
 
 body.dark-mode .mobile-menu-backdrop {
-  background: rgba(20, 20, 18, 0.45);
+  background: rgba(15, 15, 12, 0.55);
 }
 
 .header-inner {
@@ -376,37 +374,41 @@ body.dark-mode .nav-auth-btn:hover {
 
 /* Mobile Menu */
 .mobile-menu {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 420ms cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 350ms ease-out;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
   overflow: hidden;
   background: transparent;
   border-top: 1px solid transparent;
+  transition: max-height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 260ms ease-out,
+              visibility 320ms;
+  will-change: max-height, opacity;
+  transform: translateZ(0);
 }
 
 .mobile-menu.open {
-  grid-template-rows: 1fr;
+  max-height: 280px;
+  opacity: 1;
+  visibility: visible;
   border-top-color: var(--divider);
 }
 
 .mobile-menu-inner {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 0 20px;
+  padding: 12px 20px 20px;
   opacity: 0;
-  transform: translateY(-8px) scale(0.98);
-  transition: opacity 350ms ease-out,
-              transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
-              padding 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-6px);
+  transition: opacity 280ms ease-out,
+              transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .mobile-menu.open .mobile-menu-inner {
-  padding: 14px 20px 22px;
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .mobile-menu-inner a {
