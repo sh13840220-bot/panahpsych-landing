@@ -5,6 +5,7 @@ import { ScrollProgress } from './components/ScrollProgress';
 import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { ClientsSoonPage } from './pages/ClientsSoonPage';
+import { TestsSoonPage } from './pages/TestsSoonPage';
 import { ArticlesSoonPage } from './pages/ArticlesSoonPage';
 import { AuthSoonPage } from './pages/AuthSoonPage';
 
@@ -25,6 +26,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/clients-soon" element={<ClientsSoonPage />} />
+        <Route path="/tests-soon" element={<TestsSoonPage />} />
         <Route path="/articles-soon" element={<ArticlesSoonPage />} />
         <Route path="/auth-soon" element={<AuthSoonPage />} />
       </Routes>

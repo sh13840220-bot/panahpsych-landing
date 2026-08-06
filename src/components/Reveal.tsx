@@ -1,41 +1,107 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'motion/react';
 
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  delay?: number;
+  hoverEffect?: boolean;
 }
 
-export function Reveal({ children, className = '', style = {} }: RevealProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: '0px 0px -40px 0px',
-      }
-    );
-
-    observer.observe(el);
-
-    return () => observer.disconnect();
-  }, []);
+export function Reveal({ children, className = '', style = {}, delay = 0, hoverEffect = true }: RevealProps) {
+  const isCard = hoverEffect && (className.includes('glass') || className.includes('card') || className.includes('soon-card'));
 
   return (
-    <div ref={ref} className={`reveal ${className}`} style={style}>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.45, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={
+        isCard
+          ? {
+              scale: 1.015,
+              y: -4,
+              transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+            }
+          : undefined
+      }
+      className={className}
+      style={style}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
+
+interface StaggerGridProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  staggerDelay?: number;
+}
+
+export function StaggerGrid({ children, className = '', style = {}, staggerDelay = 0.12 }: StaggerGridProps) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-30px' }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: staggerDelay,
+          },
+        },
+      }}
+      className={className}
+      style={style}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+interface StaggerItemProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  hoverEffect?: boolean;
+}
+
+export function StaggerItem({ children, className = '', style = {}, hoverEffect = true }: StaggerItemProps) {
+  const isCard = hoverEffect && (className.includes('glass') || className.includes('card') || className.includes('card-small') || className.includes('card-large') || className.includes('card-side'));
+
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 18 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.45,
+            ease: [0.16, 1, 0.3, 1],
+          },
+        },
+      }}
+      whileHover={
+        isCard
+          ? {
+              scale: 1.015,
+              y: -4,
+              transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+            }
+          : undefined
+      }
+      className={className}
+      style={style}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
