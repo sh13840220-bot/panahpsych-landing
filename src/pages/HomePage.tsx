@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Reveal, StaggerGrid, StaggerItem } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { CardLargeSkeleton, CardSideSkeleton, CardSmallSkeleton } from '../components/BentoSkeleton';
@@ -45,14 +46,9 @@ export function HomePage() {
                   <p>
                     اگر روانشناس هستید و می‌خواهید به جمع همکاران پناه بپیوندید، اینجا شروع کنید.
                   </p>
-                  <a
-                    href="https://app.panahpsych.ir"
-                    className="btn-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link to="/collaboration" className="btn-primary">
                     همکاری با ما
-                  </a>
+                  </Link>
                 </StaggerItem>
 
                 <StaggerItem className="card-side glass">

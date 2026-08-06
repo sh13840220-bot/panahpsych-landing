@@ -7,6 +7,7 @@ interface RevealProps {
   style?: React.CSSProperties;
   delay?: number;
   hoverEffect?: boolean;
+  key?: React.Key;
 }
 
 export function Reveal({ children, className = '', style = {}, delay = 0, hoverEffect = true }: RevealProps) {
@@ -70,6 +71,7 @@ interface StaggerItemProps {
   className?: string;
   style?: React.CSSProperties;
   hoverEffect?: boolean;
+  key?: React.Key;
 }
 
 export function StaggerItem({ children, className = '', style = {}, hoverEffect = true }: StaggerItemProps) {

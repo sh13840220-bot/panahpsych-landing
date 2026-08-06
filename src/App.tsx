@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { ScrollProgress } from './components/ScrollProgress';
 import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
+import { CollaborationPage } from './pages/CollaborationPage';
 import { ClientsSoonPage } from './pages/ClientsSoonPage';
 import { TestsSoonPage } from './pages/TestsSoonPage';
 import { ArticlesSoonPage } from './pages/ArticlesSoonPage';
@@ -25,6 +26,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/collaboration" element={<CollaborationPage />} />
         <Route path="/clients-soon" element={<ClientsSoonPage />} />
         <Route path="/tests-soon" element={<TestsSoonPage />} />
         <Route path="/articles-soon" element={<ArticlesSoonPage />} />
