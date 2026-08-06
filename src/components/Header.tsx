@@ -9,8 +9,8 @@ export function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header>
-      <nav className="container header-inner">
+    <header className={isMenuOpen ? 'has-open-menu' : ''}>
+      <nav className="header-inner">
         <Link to="/" className="logo">
           پناه
         </Link>
@@ -63,6 +63,30 @@ export function Header() {
             )}
           </button>
 
+          {/* Sign Up / Login Pill Button */}
+          <NavLink
+            to="/auth-soon"
+            className="nav-auth-btn"
+            onClick={closeMenu}
+            title="ثبت نام / ورود"
+            aria-label="ثبت نام / ورود"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              width="18"
+              height="18"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span>ثبت نام / ورود</span>
+          </NavLink>
+
           {/* Hamburger Button (Mobile) */}
           <button
             className={`hamburger ${isMenuOpen ? 'active' : ''}`}
@@ -94,6 +118,9 @@ export function Header() {
           </NavLink>
           <NavLink to="/articles-soon" onClick={closeMenu}>
             مقالات
+          </NavLink>
+          <NavLink to="/auth-soon" className="mobile-auth-link" onClick={closeMenu}>
+            ثبت نام / ورود
           </NavLink>
         </div>
       </div>

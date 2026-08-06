@@ -2,36 +2,45 @@
 
 /* ============ Design Tokens ============ */
 :root {
-  --bg-main: #FAF9F6;
-  --bg-card: rgba(255, 255, 255, 0.55);
-  --color-primary: #A8C5C0;
-  --color-primary-dark: #7FA39C;
-  --color-accent-dark: #2B2B28;
-  --text-primary: #2B2B28;
-  --text-secondary: #6B6B65;
-  --border-glass: rgba(255, 255, 255, 0.4);
-  --header-bg: rgba(250, 249, 246, 0.65);
-  --header-border: rgba(255, 255, 255, 0.5);
-  --menu-bg: rgba(250, 249, 246, 0.92);
-  --divider: rgba(0, 0, 0, 0.05);
-  --icon-bg: rgba(168, 197, 192, 0.18);
-  --toggle-border: rgba(43, 43, 40, 0.15);
+  /* Light Mode (Brand Identity Specification) */
+  --bg-main: #E2E4DD; /* پس‌زمینه اصلی، چاپ و کاغذ */
+  --bg-card: rgba(182, 193, 168, 0.52); /* برای بک‌گراندها، کارت‌ها، فضای تنفس (#B6C1A8) */
+  --color-primary: #7D8B70; /* المان‌ها، سطوح میانی */
+  --color-primary-dark: #20301E; /* لوگو، عناصر اصلی، تیترها */
+  --color-accent-dark: #20301E;
+  --color-accent: #423828; /* جزئیات، خطوط، بافت‌ها */
+  --text-primary: #20301E; /* لوگو، عناصر اصلی، تیترها */
+  --text-secondary: #423828; /* جزئیات، خطوط، بافت‌ها */
+  --border-glass: rgba(66, 56, 40, 0.22); /* خطوط، حاشیه‌ها (#423828) */
+  --header-bg: rgba(226, 228, 221, 0.78);
+  --header-border: rgba(66, 56, 40, 0.2);
+  --menu-bg: rgba(226, 228, 221, 0.95);
+  --divider: rgba(66, 56, 40, 0.16);
+  --icon-bg: rgba(125, 139, 112, 0.22); /* #7D8B70 surface */
+  --toggle-border: rgba(66, 56, 40, 0.25);
+  --btn-primary-bg: #20301E;
+  --btn-primary-text: #E2E4DD;
 }
 
 body.dark-mode {
-  --bg-main: #1A1A18;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --text-primary: #F5F3EE;
-  --text-secondary: #A8A8A0;
-  --border-glass: rgba(255, 255, 255, 0.1);
-  --color-primary: #C2D9D3;
-  --color-primary-dark: #A6C4BD;
-  --header-bg: rgba(26, 26, 24, 0.7);
-  --header-border: rgba(255, 255, 255, 0.1);
-  --menu-bg: rgba(26, 26, 24, 0.94);
-  --divider: rgba(255, 255, 255, 0.07);
-  --icon-bg: rgba(168, 197, 192, 0.14);
-  --toggle-border: rgba(255, 255, 255, 0.15);
+  /* Dark Mode (Brand Identity Specification) */
+  --bg-main: #20301E; /* پس‌زمینه تیره (#20301E) */
+  --bg-card: rgba(86, 99, 77, 0.62); /* المان‌های فرعی روی زمینه تیره (#56634D) */
+  --text-primary: #E8E1D1; /* متن (#E8E1D1) */
+  --text-secondary: #9AA58C; /* نقاط روشن، آیکون‌ها (#9AA58C) */
+  --border-glass: rgba(154, 165, 140, 0.22);
+  --color-primary: #9AA58C; /* نقاط روشن، آیکون‌ها (#9AA58C) */
+  --color-primary-dark: #9AA58C; /* نقاط روشن، آیکون‌ها (#9AA58C) */
+  --color-accent: #A07955; /* تأکیدها، جزئیات (#A07955) */
+  --color-accent-dark: #A07955;
+  --header-bg: rgba(32, 48, 30, 0.84);
+  --header-border: rgba(154, 165, 140, 0.24);
+  --menu-bg: rgba(32, 48, 30, 0.95);
+  --divider: rgba(154, 165, 140, 0.18);
+  --icon-bg: rgba(154, 165, 140, 0.2);
+  --toggle-border: rgba(154, 165, 140, 0.28);
+  --btn-primary-bg: #A07955; /* تأکیدها، جزئیات (#A07955) */
+  --btn-primary-text: #20301E;
   color-scheme: dark;
 }
 
@@ -49,8 +58,8 @@ body {
   font-family: 'Vazirmatn', Tahoma, sans-serif;
   background-color: var(--bg-main);
   background-image:
-    radial-gradient(circle at 85% 0%, rgba(168, 197, 192, 0.14) 0%, rgba(168, 197, 192, 0) 45%),
-    linear-gradient(180deg, #FAF9F6 0%, #F5F3EE 100%);
+    radial-gradient(circle at 85% 0%, rgba(182, 193, 168, 0.35) 0%, rgba(182, 193, 168, 0) 50%),
+    linear-gradient(180deg, #E2E4DD 0%, #D8DBD0 100%);
   background-attachment: fixed;
   background-size: cover;
   color: var(--text-primary);
@@ -69,8 +78,8 @@ body {
 
 body.dark-mode {
   background-image:
-    radial-gradient(circle at 85% 0%, rgba(168, 197, 192, 0.08) 0%, rgba(168, 197, 192, 0) 45%),
-    linear-gradient(180deg, #1A1A18 0%, #151513 100%);
+    radial-gradient(circle at 85% 0%, rgba(86, 99, 77, 0.45) 0%, rgba(86, 99, 77, 0) 50%),
+    linear-gradient(180deg, #20301E 0%, #172416 100%);
 }
 
 body, header, .glass, .mobile-menu, .logo,
@@ -141,22 +150,46 @@ body.dark-mode .glass::after {
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.22), transparent);
 }
 
-/* Header */
+/* Header - Floating Dynamic Island */
 header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
+  width: calc(100% - 32px);
+  max-width: 920px;
   background: var(--header-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--header-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--header-border);
+  border-radius: 9999px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: background-color 300ms ease-out, border-color 300ms ease-out,
+              box-shadow 300ms ease-out, border-radius 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              width 300ms ease-out;
+}
+
+body.dark-mode header {
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+header.has-open-menu {
+  border-radius: 28px;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 10px 24px;
+  width: 100%;
 }
 
 .logo {
@@ -215,6 +248,54 @@ header {
   stroke: var(--text-primary);
 }
 
+/* Auth Pill Button in Navbar */
+.nav-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid rgba(32, 48, 30, 0.25);
+  box-shadow: 0 2px 10px rgba(32, 48, 30, 0.15);
+  transition: background-color 300ms ease-out, color 300ms ease-out,
+              border-color 300ms ease-out, transform 200ms ease-out,
+              box-shadow 300ms ease-out;
+}
+
+.nav-auth-btn svg {
+  stroke: var(--btn-primary-text);
+  flex-shrink: 0;
+  transition: stroke 300ms ease-out;
+}
+
+.nav-auth-btn:hover {
+  background-color: #2c422a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(32, 48, 30, 0.25);
+}
+
+body.dark-mode .nav-auth-btn {
+  background-color: #A07955;
+  color: #20301E;
+  border: 1px solid rgba(160, 121, 85, 0.4);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .nav-auth-btn svg {
+  stroke: #20301E;
+}
+
+body.dark-mode .nav-auth-btn:hover {
+  background-color: #b38962;
+  box-shadow: 0 4px 18px rgba(160, 121, 85, 0.45);
+}
+
 /* Hamburger button */
 .hamburger {
   display: none;
@@ -255,26 +336,24 @@ header {
 .mobile-menu {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 350ms ease-out, background-color 300ms ease-out;
-  background: var(--menu-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--header-border);
+  transition: max-height 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border-top: 1px solid var(--divider);
 }
 
 .mobile-menu.open {
-  max-height: 260px;
+  max-height: 320px;
 }
 
 .mobile-menu-inner {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px 24px 24px;
+  padding: 12px 20px 20px;
 }
 
 .mobile-menu-inner a {
-  padding: 14px 8px;
+  padding: 12px 8px;
   font-size: 16px;
   font-weight: 500;
   color: var(--text-primary);
@@ -283,6 +362,32 @@ header {
 
 .mobile-menu-inner a:last-child {
   border-bottom: none;
+}
+
+.mobile-auth-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 18px !important;
+  border-radius: 9999px !important;
+  font-size: 15px;
+  font-weight: 600;
+  border-bottom: none !important;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text) !important;
+  text-align: center;
+  transition: opacity 250ms ease-out, transform 200ms ease-out;
+}
+
+body.dark-mode .mobile-auth-link {
+  background-color: #A07955;
+  color: #20301E !important;
+}
+
+.mobile-auth-link:hover {
+  opacity: 0.9;
 }
 
 /* Main Layout */
@@ -294,7 +399,7 @@ main.soon-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px;
+  padding: 130px 24px 80px;
 }
 
 section {
@@ -303,7 +408,7 @@ section {
 
 /* Hero */
 .hero {
-  padding-top: 110px;
+  padding-top: 135px;
   padding-bottom: 90px;
   text-align: center;
   position: relative;
@@ -355,8 +460,8 @@ section {
 /* Buttons */
 .btn-primary {
   display: inline-block;
-  background: var(--color-accent-dark);
-  color: #fff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   padding: 18px 40px;
   border-radius: 999px;
   border: none;
@@ -364,16 +469,18 @@ section {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 300ms ease-out, background-color 300ms ease-out, color 300ms ease-out;
+  box-shadow: 0 4px 14px rgba(32, 48, 30, 0.15);
+  transition: opacity 300ms ease-out, background-color 300ms ease-out, color 300ms ease-out, transform 200ms ease-out;
 }
 
 .btn-primary:hover {
-  opacity: 0.85;
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
 body.dark-mode .btn-primary {
-  background: #F5F3EE;
-  color: #2B2B28;
+  background: #A07955;
+  color: #20301E;
 }
 
 /* Bento Grid */
@@ -495,6 +602,111 @@ body.dark-mode .btn-primary {
   opacity: 0.7;
 }
 
+/* Skeleton Loading Styles */
+.skeleton-box {
+  background-color: var(--skeleton-bg, rgba(0, 0, 0, 0.06));
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+body.dark-mode .skeleton-box {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.skeleton-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.35) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: skeleton-shimmer 1.8s infinite ease-in-out;
+}
+
+body.dark-mode .skeleton-box::after {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.03) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-circle {
+  border-radius: 50% !important;
+}
+
+.skeleton-pill {
+  border-radius: 9999px !important;
+}
+
+.bento-card-loading {
+  pointer-events: none;
+  user-select: none;
+}
+
+.skeleton-reload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--icon-bg);
+  border: 1px solid var(--toggle-border);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: opacity 300ms ease-out, background-color 300ms ease-out, transform 200ms ease-out;
+}
+
+.skeleton-reload-btn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.skeleton-reload-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--text-secondary);
+  transition: transform 500ms ease-out;
+}
+
+.skeleton-reload-btn.spinning svg {
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Footer */
 footer {
   padding: 60px 0 50px;
@@ -518,6 +730,13 @@ footer.footer-short {
   font-size: 15px;
 }
 
+.footer-social-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .footer-social {
   display: flex;
   align-items: center;
@@ -527,14 +746,26 @@ footer.footer-short {
   transition: opacity 300ms ease-out, color 300ms ease-out;
 }
 
-.footer-social:hover {
+a.footer-social:hover {
   opacity: 0.7;
+}
+
+.footer-social-disabled {
+  opacity: 0.7;
+  cursor: default;
+  color: var(--text-secondary);
+  user-select: none;
 }
 
 .footer-social svg {
   width: 22px;
   height: 22px;
   stroke: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.footer-social-disabled svg {
+  stroke: var(--text-secondary);
 }
 
 /* Reveal Animation */
@@ -551,10 +782,84 @@ footer.footer-short {
   transform: translateY(0);
 }
 
+/* Scroll To Top Floating Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 90;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px) scale(0.9);
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms ease-out,
+              border-color 300ms ease-out,
+              box-shadow 300ms ease-out;
+}
+
+body.dark-mode .scroll-to-top {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.scroll-to-top svg {
+  stroke: var(--text-primary);
+  transition: transform 250ms ease-out, stroke 300ms ease-out;
+}
+
+.scroll-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
+  header {
+    top: 12px;
+    width: calc(100% - 24px);
+  }
+  .header-inner {
+    padding: 10px 18px;
+  }
+  main.soon-container {
+    padding-top: 110px;
+  }
   .hero {
-    padding-top: 80px;
+    padding-top: 100px;
     padding-bottom: 70px;
   }
   .hero h1 {
@@ -595,6 +900,22 @@ footer.footer-short {
   }
   .hamburger {
     display: flex;
+  }
+  .nav-auth-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 9999px;
+    justify-content: center;
+  }
+  .nav-auth-btn span {
+    display: none;
+  }
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
   }
 }
 
