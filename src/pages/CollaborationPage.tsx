@@ -1,6 +1,7 @@
 import React from 'react';
 import { Reveal, StaggerGrid, StaggerItem } from '../components/Reveal';
 import { Footer } from '../components/Footer';
+import CypressTreeAchievements from '../components/CypressTreeAchievements';
 
 export function CollaborationPage() {
   return (
@@ -209,7 +210,7 @@ export function CollaborationPage() {
               <p>چارچوبی که تمام مسیر ما را هدایت می‌کند</p>
             </Reveal>
 
-            <StaggerGrid className="bento-grid" staggerDelay={0.1}>
+            <StaggerGrid className="values-four-grid" staggerDelay={0.1}>
               <StaggerItem className="card-small glass">
                 <div className="icon-wrap">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="26" height="26">
@@ -256,62 +257,14 @@ export function CollaborationPage() {
           </div>
         </section>
 
-        {/* Why Collaborate with Panah? */}
-        <section style={{ padding: '40px 0' }}>
+        {/* Why Collaborate with Panah? - Cypress Tree Section */}
+        <section style={{ padding: '48px 0' }}>
           <div className="container">
             <Reveal className="section-title">
               <h2>چرا با پناه همکاری کنیم؟</h2>
-              <p>مزایای همکاری متقابل و هم‌افزا</p>
             </Reveal>
 
-            <StaggerGrid className="bento-grid" staggerDelay={0.12}>
-              <StaggerItem className="card-large glass">
-                <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px' }}>دستاوردهای همکاری با پناه</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-                  {[
-                    'معرفی مستمر مراجعین مناسب',
-                    'تسویه‌حساب منظم و کاملاً شفاف',
-                    'تمرکز گروهی بر کیفیت خدمات',
-                    'حمایت از فرهنگ مراجعه به روانشناس',
-                    'ساخت برند معتبر در حوزه سلامت روان',
-                  ].map((text, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        padding: '16px',
-                        borderRadius: '16px',
-                        background: 'var(--icon-bg)',
-                        border: '1px solid var(--border-glass)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        fontSize: '15px',
-                        fontWeight: 500,
-                      }}
-                    >
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 'bold' }}>•</span>
-                      <span>{text}</span>
-                    </div>
-                  ))}
-                </div>
-              </StaggerItem>
-
-              <StaggerItem className="card-side glass" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ textAlign: 'center', padding: '12px' }}>
-                  <div
-                    style={{
-                      fontSize: '18px',
-                      fontWeight: 600,
-                      lineHeight: '1.8',
-                      color: 'var(--text-primary)',
-                      fontStyle: 'normal',
-                    }}
-                  >
-                    «ما به دنبال بیشترین تعداد درمانگر نیستیم؛ به دنبال درمانگرانی هستیم که کیفیت را جدی می‌گیرند.»
-                  </div>
-                </div>
-              </StaggerItem>
-            </StaggerGrid>
+            <CypressTreeAchievements />
           </div>
         </section>
 
@@ -372,32 +325,33 @@ export function CollaborationPage() {
               <p>تعهدات متقابل برای ساخت تجربه‌ای اثربخش</p>
             </Reveal>
 
-            <StaggerGrid className="bento-grid" staggerDelay={0.14}>
-              <StaggerItem className="card-large glass">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <StaggerGrid className="expectations-two-grid" staggerDelay={0.14}>
+              <StaggerItem className="card-expectation glass">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                   <div
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '10px',
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '12px',
                       background: 'var(--icon-bg)',
+                      color: 'var(--color-primary-dark)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="20" height="20">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                       <circle cx="12" cy="7" r="4" />
                     </svg>
                   </div>
                   <h3 style={{ fontSize: '19px', fontWeight: 700 }}>انتظارات از درمانگر</h3>
                 </div>
-                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {['رفتار کاملاً حرفه‌ای و رعایت اخلاق درمان', 'احترام به مراجع در تمام مراحل درمان', 'پایبندی دقیق به اصول و شواهد علمی', 'نظم و انضباط در برگزاری به‌موقع جلسات'].map(
                     (text, i) => (
-                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px' }}>
-                        <span style={{ color: 'var(--text-primary)' }}>✓</span>
+                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '15px', color: 'var(--text-primary)' }}>
+                        <span style={{ color: 'var(--color-primary-dark)', fontWeight: 'bold', fontSize: '16px' }}>✓</span>
                         <span>{text}</span>
                       </li>
                     )
@@ -405,30 +359,31 @@ export function CollaborationPage() {
                 </ul>
               </StaggerItem>
 
-              <StaggerItem className="card-large glass">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <StaggerItem className="card-expectation glass">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                   <div
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '10px',
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '12px',
                       background: 'var(--icon-bg)',
+                      color: 'var(--color-primary-dark)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="20" height="20">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
                       <path d="M12 21c-4.97-3-8-6.5-8-10.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 8 4.5C20 14.5 16.97 18 12 21Z" />
                     </svg>
                   </div>
                   <h3 style={{ fontSize: '19px', fontWeight: 700 }}>تعهدات پناه</h3>
                 </div>
-                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {['تسویه‌حساب شفاف، دقیق و به‌موقع', 'احترام متقابل به جایگاه تخصصی درمانگر', 'پاسخگویی سریع به دغدغه‌ها و پیشنهادات', 'حمایت همه‌جانبه از رشد فنی و زیرساختی'].map(
                     (text, i) => (
-                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px' }}>
-                        <span style={{ color: 'var(--text-primary)' }}>✓</span>
+                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '15px', color: 'var(--text-primary)' }}>
+                        <span style={{ color: 'var(--color-primary-dark)', fontWeight: 'bold', fontSize: '16px' }}>✓</span>
                         <span>{text}</span>
                       </li>
                     )

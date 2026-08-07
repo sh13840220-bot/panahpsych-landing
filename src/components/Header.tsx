@@ -61,7 +61,6 @@ export const Header = React.memo(function Header() {
           <div className="nav-group">
             {/* Desktop Nav Links */}
             <div className="nav-links">
-              <NavLink to="/collaboration">همکاری</NavLink>
               <NavLink to="/clients-soon">مراجعه‌کنندگان</NavLink>
               <NavLink to="/tests-soon">آزمون‌های روانشناسی</NavLink>
               <NavLink to="/articles-soon">مقالات</NavLink>

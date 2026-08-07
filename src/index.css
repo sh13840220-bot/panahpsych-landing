@@ -642,6 +642,50 @@ body.dark-mode .btn-primary {
   line-height: 1.9;
 }
 
+/* 4-Card Grid for Values section to arrange 4 items side-by-side without empty spaces */
+.values-four-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.values-four-grid .card-small {
+  grid-column: span 1;
+  padding: 36px 20px;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .values-four-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .values-four-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2-Card Grid for Expectations section to arrange boxes side by side */
+.expectations-two-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.expectations-two-grid .card-expectation {
+  padding: 32px 28px;
+  border-radius: 24px;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .expectations-two-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .section-title {
   text-align: center;
   margin-bottom: 56px;
