@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
+import panahLogo from '../assets/images/panah_logo_official_1786092935571.jpg';
+
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -54,8 +56,13 @@ export const Header = React.memo(function Header() {
 
       <header className={isMenuOpen ? 'has-open-menu' : ''}>
         <nav className="header-inner">
-          <Link to="/" className="logo">
-            پناه
+          <Link to="/" className="logo" aria-label="پناه">
+            <img
+              src={panahLogo}
+              alt="پناه"
+              className="logo-brand-img"
+              referrerPolicy="no-referrer"
+            />
           </Link>
 
           <div className="nav-group">

@@ -255,6 +255,24 @@ body.dark-mode .mobile-menu-backdrop {
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.logo-brand-img {
+  height: 48px;
+  width: auto;
+  max-height: 48px;
+  border-radius: 10px;
+  object-fit: contain;
+  display: block;
+  filter: none !important;
+  opacity: 1 !important;
+  transition: transform 0.2s ease;
+}
+
+.logo-brand-img:hover {
+  transform: scale(1.03);
 }
 
 .nav-group {
@@ -672,17 +690,23 @@ body.dark-mode .btn-primary {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  max-width: 840px;
+  margin: 0 auto;
+  align-items: start;
 }
 
 .expectations-two-grid .card-expectation {
-  padding: 32px 28px;
-  border-radius: 24px;
-  height: 100%;
+  padding: 24px 24px;
+  border-radius: 20px;
+  height: auto;
+  align-self: start;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
   .expectations-two-grid {
     grid-template-columns: 1fr;
+    max-width: 440px;
   }
 }
 
@@ -841,6 +865,20 @@ footer.footer-short {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.footer-enamad {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-enamad img {
+  height: 60px;
+  width: auto;
+  max-height: 65px;
+  cursor: pointer;
+  display: block;
 }
 
 .footer-text {
