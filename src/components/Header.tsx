@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
-import panahLogo from '../assets/images/panah_logo_official_1786092935571.jpg';
+import panahLogoLight from '../assets/images/panah_logo_light.webp';
+import panahLogoDark from '../assets/images/panah_logo_dark.webp';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -45,6 +46,8 @@ export const Header = React.memo(function Header() {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  const currentLogo = theme === 'dark' ? panahLogoDark : panahLogoLight;
+
   return (
     <>
       {/* Mobile Menu Backdrop */}
@@ -58,7 +61,7 @@ export const Header = React.memo(function Header() {
         <nav className="header-inner">
           <Link to="/" className="logo" aria-label="پناه">
             <img
-              src={panahLogo}
+              src={currentLogo}
               alt="پناه"
               className="logo-brand-img"
               referrerPolicy="no-referrer"
@@ -152,5 +155,3 @@ export const Header = React.memo(function Header() {
     </>
   );
 });
-
-
