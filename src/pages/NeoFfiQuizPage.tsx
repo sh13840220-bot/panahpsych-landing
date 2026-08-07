@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { SmartAnalysisCard } from '../components/SmartAnalysisCard';
+import { saveAssessmentResult } from '../lib/saveAssessmentResult';
 
 export interface NeoQuestion {
   id: number;
@@ -97,12 +99,18 @@ export const FACTORS: Record<string, { title: string; short: string; low: string
 
 export function NeoFfiQuizPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const resultSavedRef = useRef(false);
   const [screen, setScreen] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [consent, setConsent] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(NEO_QUESTIONS.length).fill(null));
 
   const handleStart = () => {
+    if (!user) {
+      navigate('/auth-soon');
+      return;
+    }
     if (!consent) return;
     setScreen('quiz');
   };
@@ -128,6 +136,7 @@ export function NeoFfiQuizPage() {
   };
 
   const handleRestart = () => {
+    resultSavedRef.current = false;
     setCurrentIndex(0);
     setAnswers(new Array(NEO_QUESTIONS.length).fill(null));
     setConsent(false);
@@ -148,6 +157,18 @@ export function NeoFfiQuizPage() {
 
   const sortedFactors = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
   const highestFactors = sortedFactors.slice(0, 2).map((k) => FACTORS[k].title.split(' ')[0]).join(' و ');
+
+  useEffect(() => {
+    if (screen !== 'result') return;
+    if (resultSavedRef.current) return;
+
+    resultSavedRef.current = true;
+
+    saveAssessmentResult({
+      testType: 'NEO-FFI',
+      result: `N: ${scores.N} | E: ${scores.E} | O: ${scores.O} | A: ${scores.A} | C: ${scores.C}`,
+    });
+  }, [screen, scores.N, scores.E, scores.O, scores.A, scores.C]);
 
   return (
     <>
@@ -174,6 +195,11 @@ export function NeoFfiQuizPage() {
               <div className="dass-disclaimer">
                 ⚠️ این نسخه برای <strong>خودشناسی و غربالگری اولیه</strong> طراحی شده است و جایگزین ارزیابی مستقیم روان‌شناس نیست.
               </div>
+              {!user && (
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                  🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
+                </div>
+              )}
               <label className="dass-consent-label">
                 <input
                   type="checkbox"
@@ -190,7 +216,7 @@ export function NeoFfiQuizPage() {
                 disabled={!consent}
                 style={{ marginTop: '20px', width: '100%', justifyContent: 'center' }}
               >
-                شروع آزمون
+                {user ? 'شروع آزمون' : 'ورود / ثبت‌نام برای شروع آزمون'}
               </button>
             </Reveal>
           )}
@@ -325,7 +351,7 @@ export function NeoFfiQuizPage() {
 
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer showCollabNote={false} isShort={true} />
     </>
   );
 }

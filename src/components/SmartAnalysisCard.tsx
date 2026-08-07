@@ -517,6 +517,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
 
       {/* Navigation Tabs */}
       <div
+        className="smart-tab-nav no-print"
         style={{
           display: 'flex',
           gap: '8px',
@@ -564,236 +565,238 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
       </div>
 
       {/* Content Tab 1: Recommendations */}
-      {activeTab === 'recs' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {/* Category Filter Pills */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              overflowX: 'auto',
-              paddingBottom: '6px',
-              scrollbarWidth: 'none',
-            }}
-          >
-            <span
-              style={{
-                fontSize: '12px',
-                fontWeight: 700,
-                color: '#6B6B65',
-                marginLeft: '4px',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              فیلتر دسته:
-            </span>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('همه')}
-              style={{
-                fontSize: '12px',
-                fontWeight: 700,
-                padding: '4px 12px',
-                borderRadius: '999px',
-                border: selectedCategory === 'همه' ? '1px solid #7FA39C' : '1px solid transparent',
-                background: selectedCategory === 'همه' ? '#7FA39C' : 'rgba(238, 241, 230, 0.7)',
-                color: selectedCategory === 'همه' ? '#FFFFFF' : '#4A5442',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              همه موارد
-            </button>
-            {presentCategories.map((cat) => {
-              const conf = CATEGORY_CONFIG[cat];
-              const isSel = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    padding: '4px 12px',
-                    borderRadius: '999px',
-                    border: `1px solid ${conf?.borderClass || 'transparent'}`,
-                    background: isSel ? conf?.textClass || '#223018' : conf?.bgClass || '#EEF1E6',
-                    color: isSel ? '#FFFFFF' : conf?.textClass || '#223018',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    whiteSpace: 'nowrap',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}
-                >
-                  <span>{conf?.icon}</span>
-                  <span>{conf?.label || cat}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Cards List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {filteredRecommendations.map((item, idx) => {
-              const catConfig = CATEGORY_CONFIG[item.category] || {
-                label: item.category,
-                icon: item.icon,
-                bgClass: '#EEF1E6',
-                textClass: '#223018',
-                borderClass: '#C7D0B8',
-              };
-
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    background: item.isHighPriority
-                      ? 'linear-gradient(135deg, rgba(254, 242, 242, 0.95), rgba(255, 255, 255, 0.95))'
-                      : '#FFFFFF',
-                    borderRadius: '16px',
-                    padding: '18px',
-                    border: item.isHighPriority
-                      ? '1.5px solid rgba(252, 165, 165, 0.9)'
-                      : '1px solid rgba(199, 208, 184, 0.6)',
-                    display: 'flex',
-                    gap: '16px',
-                    alignItems: 'flex-start',
-                    boxShadow: item.isHighPriority
-                      ? '0 6px 20px rgba(220, 38, 38, 0.08)'
-                      : '0 4px 14px rgba(32, 48, 30, 0.03)',
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                  }}
-                  className="smart-recommendation-card"
-                >
-                  {/* Icon box */}
-                  <div
-                    style={{
-                      fontSize: '26px',
-                      background: item.isHighPriority ? '#FEE2E2' : catConfig.bgClass,
-                      color: catConfig.textClass,
-                      padding: '10px',
-                      borderRadius: '14px',
-                      lineHeight: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: `1px solid ${catConfig.borderClass}`,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-
-                  {/* Text details */}
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: '6px',
-                        flexWrap: 'wrap',
-                        gap: '8px',
-                      }}
-                    >
-                      <h4
-                        style={{
-                          fontSize: '15px',
-                          fontWeight: 800,
-                          color: '#2B2B28',
-                          margin: 0,
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        {item.title}
-                      </h4>
-
-                      {/* Color-coded category badge */}
-                      <span
-                        style={{
-                          fontSize: '11.5px',
-                          fontWeight: 700,
-                          color: catConfig.textClass,
-                          background: catConfig.bgClass,
-                          border: `1px solid ${catConfig.borderClass}`,
-                          padding: '3px 10px',
-                          borderRadius: '999px',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '4px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        <span>{catConfig.icon}</span>
-                        <span>{catConfig.label}</span>
-                      </span>
-                    </div>
-
-                    <p
-                      style={{
-                        fontSize: '13.5px',
-                        color: '#4A5442',
-                        margin: 0,
-                        lineHeight: 1.65,
-                      }}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Content Tab 2: Exercise */}
-      {activeTab === 'exercise' && (
+      <div
+        className={`smart-recs-section ${activeTab !== 'recs' ? 'hide-on-screen-only' : ''}`}
+        style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+      >
+        {/* Category Filter Pills */}
         <div
+          className="smart-category-filters no-print"
           style={{
-            background: '#FFFFFF',
-            borderRadius: '18px',
-            padding: '22px',
-            border: '1px solid rgba(199, 208, 184, 0.7)',
-            boxShadow: '0 4px 16px rgba(32, 48, 30, 0.03)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            overflowX: 'auto',
+            paddingBottom: '6px',
+            scrollbarWidth: 'none',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-            <span style={{ fontSize: '20px' }}>🧘‍♂️</span>
-            <h4
-              style={{
-                fontSize: '16px',
-                fontWeight: 800,
-                color: '#223018',
-                margin: 0,
-              }}
-            >
-              {analysis.exerciseTitle}
-            </h4>
-          </div>
-
-          <ol
+          <span
             style={{
-              paddingRight: '22px',
-              margin: 0,
-              color: '#4A5442',
-              fontSize: '14px',
-              lineHeight: 1.85,
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#6B6B65',
+              marginLeft: '4px',
+              whiteSpace: 'nowrap',
             }}
           >
-            {analysis.exerciseSteps.map((step, sIdx) => (
-              <li key={sIdx} style={{ marginBottom: '10px' }}>
-                {step}
-              </li>
-            ))}
-          </ol>
+            فیلتر دسته:
+          </span>
+          <button
+            type="button"
+            onClick={() => setSelectedCategory('همه')}
+            style={{
+              fontSize: '12px',
+              fontWeight: 700,
+              padding: '4px 12px',
+              borderRadius: '999px',
+              border: selectedCategory === 'همه' ? '1px solid #7FA39C' : '1px solid transparent',
+              background: selectedCategory === 'همه' ? '#7FA39C' : 'rgba(238, 241, 230, 0.7)',
+              color: selectedCategory === 'همه' ? '#FFFFFF' : '#4A5442',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            همه موارد
+          </button>
+          {presentCategories.map((cat) => {
+            const conf = CATEGORY_CONFIG[cat];
+            const isSel = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  padding: '4px 12px',
+                  borderRadius: '999px',
+                  border: `1px solid ${conf?.borderClass || 'transparent'}`,
+                  background: isSel ? conf?.textClass || '#223018' : conf?.bgClass || '#EEF1E6',
+                  color: isSel ? '#FFFFFF' : conf?.textClass || '#223018',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                }}
+              >
+                <span>{conf?.icon}</span>
+                <span>{conf?.label || cat}</span>
+              </button>
+            );
+          })}
         </div>
-      )}
+
+        {/* Cards List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {analysis.recommendations.map((item, idx) => {
+            const isFilteredOutOnScreen = selectedCategory !== 'همه' && item.category !== selectedCategory;
+            const catConfig = CATEGORY_CONFIG[item.category] || {
+              label: item.category,
+              icon: item.icon,
+              bgClass: '#EEF1E6',
+              textClass: '#223018',
+              borderClass: '#C7D0B8',
+            };
+
+            return (
+              <div
+                key={idx}
+                style={{
+                  background: item.isHighPriority
+                    ? 'linear-gradient(135deg, rgba(254, 242, 242, 0.95), rgba(255, 255, 255, 0.95))'
+                    : '#FFFFFF',
+                  borderRadius: '16px',
+                  padding: '18px',
+                  border: item.isHighPriority
+                    ? '1.5px solid rgba(252, 165, 165, 0.9)'
+                    : '1px solid rgba(199, 208, 184, 0.6)',
+                  display: 'flex',
+                  gap: '16px',
+                  alignItems: 'flex-start',
+                  boxShadow: item.isHighPriority
+                    ? '0 6px 20px rgba(220, 38, 38, 0.08)'
+                    : '0 4px 14px rgba(32, 48, 30, 0.03)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+                className={`smart-recommendation-card ${isFilteredOutOnScreen ? 'hide-on-screen-only' : ''}`}
+              >
+                {/* Icon box */}
+                <div
+                  style={{
+                    fontSize: '26px',
+                    background: item.isHighPriority ? '#FEE2E2' : catConfig.bgClass,
+                    color: catConfig.textClass,
+                    padding: '10px',
+                    borderRadius: '14px',
+                    lineHeight: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: `1px solid ${catConfig.borderClass}`,
+                    flexShrink: 0,
+                  }}
+                >
+                  {item.icon}
+                </div>
+
+                {/* Text details */}
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginBottom: '6px',
+                      flexWrap: 'wrap',
+                      gap: '8px',
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontSize: '15px',
+                        fontWeight: 800,
+                        color: '#2B2B28',
+                        margin: 0,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {item.title}
+                    </h4>
+
+                    {/* Color-coded category badge */}
+                    <span
+                      style={{
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        color: catConfig.textClass,
+                        background: catConfig.bgClass,
+                        border: `1px solid ${catConfig.borderClass}`,
+                        padding: '3px 10px',
+                        borderRadius: '999px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      <span>{catConfig.icon}</span>
+                      <span>{catConfig.label}</span>
+                    </span>
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: '13.5px',
+                      color: '#4A5442',
+                      margin: 0,
+                      lineHeight: 1.65,
+                    }}
+                  >
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Content Tab 2: Practical Exercise */}
+      <div
+        className={`smart-exercise-section ${activeTab !== 'exercise' ? 'hide-on-screen-only' : ''}`}
+        style={{
+          background: '#FFFFFF',
+          borderRadius: '18px',
+          padding: '22px',
+          border: '1px solid rgba(199, 208, 184, 0.7)',
+          boxShadow: '0 4px 16px rgba(32, 48, 30, 0.03)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+          <span style={{ fontSize: '20px' }}>🧘‍♂️</span>
+          <h4
+            style={{
+              fontSize: '16px',
+              fontWeight: 800,
+              color: '#223018',
+              margin: 0,
+            }}
+          >
+            {analysis.exerciseTitle}
+          </h4>
+        </div>
+
+        <ol
+          style={{
+            paddingRight: '22px',
+            margin: 0,
+            color: '#4A5442',
+            fontSize: '14px',
+            lineHeight: 1.85,
+          }}
+        >
+          {analysis.exerciseSteps.map((step, sIdx) => (
+            <li key={sIdx} style={{ marginBottom: '10px' }}>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 };

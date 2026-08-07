@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { SmartAnalysisCard } from '../components/SmartAnalysisCard';
+import { saveAssessmentResult } from '../lib/saveAssessmentResult';
 
 export interface Question {
   id: number;
@@ -38,12 +40,18 @@ function getLevel(score: number) {
 
 export function RosenbergQuizPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const resultSavedRef = useRef(false);
   const [screen, setScreen] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [consent, setConsent] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(ROSENBERG_QUESTIONS.length).fill(null));
 
   const handleStart = () => {
+    if (!user) {
+      navigate('/auth-soon');
+      return;
+    }
     if (!consent) return;
     setScreen('quiz');
   };
@@ -69,6 +77,7 @@ export function RosenbergQuizPage() {
   };
 
   const handleRestart = () => {
+    resultSavedRef.current = false;
     setCurrentIndex(0);
     setAnswers(new Array(ROSENBERG_QUESTIONS.length).fill(null));
     setConsent(false);
@@ -82,6 +91,18 @@ export function RosenbergQuizPage() {
   });
 
   const levelInfo = getLevel(totalScore);
+
+  useEffect(() => {
+    if (screen !== 'result') return;
+    if (resultSavedRef.current) return;
+
+    resultSavedRef.current = true;
+
+    saveAssessmentResult({
+      testType: 'عزت نفس روزنبرگ',
+      result: `نمره ${totalScore} از ۳۰ - سطح ${levelInfo.label}`,
+    });
+  }, [screen, totalScore, levelInfo.label]);
 
   return (
     <>
@@ -108,6 +129,11 @@ export function RosenbergQuizPage() {
               <div className="dass-disclaimer">
                 ⚠️ این آزمون یک ابزار <strong>غربالگری</strong> است، نه تشخیصی. نتیجه‌ی آن جایگزین ارزیابی روان‌شناس نیست.
               </div>
+              {!user && (
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                  🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
+                </div>
+              )}
               <label className="dass-consent-label">
                 <input
                   type="checkbox"
@@ -124,7 +150,7 @@ export function RosenbergQuizPage() {
                 disabled={!consent}
                 style={{ marginTop: '20px', width: '100%', justifyContent: 'center' }}
               >
-                شروع آزمون
+                {user ? 'شروع آزمون' : 'ورود / ثبت‌نام برای شروع آزمون'}
               </button>
             </Reveal>
           )}
@@ -239,7 +265,7 @@ export function RosenbergQuizPage() {
 
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer showCollabNote={false} isShort={true} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { DashboardPage } from './pages/DashboardPage';
 import { Header } from './components/Header';
 import { ScrollProgress } from './components/ScrollProgress';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -44,11 +45,9 @@ export default function App() {
         <Route path="/assessments/dass-21" element={<Dass21QuizPage />} />
         <Route path="/articles-soon" element={<ArticlesSoonPage />} />
         <Route path="/auth-soon" element={<AuthSoonPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
       <ScrollToTop />
     </>
   );
 }
-
-
-

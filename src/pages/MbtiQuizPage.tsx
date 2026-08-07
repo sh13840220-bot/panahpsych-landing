@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { SmartAnalysisCard } from '../components/SmartAnalysisCard';
+import { saveAssessmentResult } from '../lib/saveAssessmentResult';
 
 export interface MbtiQuestion {
   id: number;
@@ -104,12 +106,18 @@ function getDimension(scores: Record<string, number>, a: string, b: string) {
 
 export function MbtiQuizPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const resultSavedRef = useRef(false);
   const [screen, setScreen] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [consent, setConsent] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(MBTI_QUESTIONS.length).fill(null));
 
   const handleStart = () => {
+    if (!user) {
+      navigate('/auth-soon');
+      return;
+    }
     if (!consent) return;
     setScreen('quiz');
   };
@@ -135,6 +143,7 @@ export function MbtiQuizPage() {
   };
 
   const handleRestart = () => {
+    resultSavedRef.current = false;
     setCurrentIndex(0);
     setAnswers(new Array(MBTI_QUESTIONS.length).fill(null));
     setConsent(false);
@@ -157,6 +166,18 @@ export function MbtiQuizPage() {
     getDimension(scores, 'J', 'P');
 
   const typeDetails = TYPE_INFO[type] || { name: 'نامشخص', desc: '' };
+
+  useEffect(() => {
+    if (screen !== 'result') return;
+    if (resultSavedRef.current) return;
+
+    resultSavedRef.current = true;
+
+    saveAssessmentResult({
+      testType: 'MBTI',
+      result: `${type} (${typeDetails.name})`,
+    });
+  }, [screen, type, typeDetails.name]);
 
   const dimensionsList: Array<[string, string, string]> = [
     ['E', 'I', 'برون‌گرایی / درون‌گرایی'],
@@ -190,6 +211,11 @@ export function MbtiQuizPage() {
               <div className="dass-disclaimer">
                 ⚠️ این آزمون برای <strong>خودشناسی و آشنایی اولیه</strong> طراحی شده است و ابزار تشخیص اختلالات روان‌شناختی یا ارزیابی بالینی نیست.
               </div>
+              {!user && (
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                  🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
+                </div>
+              )}
               <label className="dass-consent-label">
                 <input
                   type="checkbox"
@@ -206,7 +232,7 @@ export function MbtiQuizPage() {
                 disabled={!consent}
                 style={{ marginTop: '20px', width: '100%', justifyContent: 'center' }}
               >
-                شروع آزمون
+                {user ? 'شروع آزمون' : 'ورود / ثبت‌نام برای شروع آزمون'}
               </button>
             </Reveal>
           )}
@@ -353,7 +379,7 @@ export function MbtiQuizPage() {
 
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer showCollabNote={false} isShort={true} />
     </>
   );
 }

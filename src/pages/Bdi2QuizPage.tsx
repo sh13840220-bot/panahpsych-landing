@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { SmartAnalysisCard } from '../components/SmartAnalysisCard';
+import { saveAssessmentResult } from '../lib/saveAssessmentResult';
 
 export interface BdiQuestion {
   id: number;
@@ -241,12 +243,19 @@ function getSeverity(score: number) {
 
 export function Bdi2QuizPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const resultSavedRef = useRef(false);
+  
   const [screen, setScreen] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [consent, setConsent] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(BDI2_QUESTIONS.length).fill(null));
 
   const handleStart = () => {
+    if (!user) {
+      navigate('/auth-soon');
+      return;
+    }
     if (!consent) return;
     setScreen('quiz');
   };
@@ -272,15 +281,32 @@ export function Bdi2QuizPage() {
   };
 
   const handleRestart = () => {
-    setCurrentIndex(0);
-    setAnswers(new Array(BDI2_QUESTIONS.length).fill(null));
-    setConsent(false);
-    setScreen('intro');
-  };
+  resultSavedRef.current = false;
+
+  setCurrentIndex(0);
+  setAnswers(new Array(BDI2_QUESTIONS.length).fill(null));
+  setConsent(false);
+  setScreen('intro');
+};
 
   const totalScore = answers.reduce((sum, v) => sum + (v || 0), 0);
   const severity = getSeverity(totalScore);
   const hasSuicidalIdeation = answers[8] !== null && (answers[8] as number) >= 1;
+    
+  useEffect(() => {
+    if (screen !== 'result') return;
+    if (resultSavedRef.current) return;
+
+    resultSavedRef.current = true;
+
+    saveAssessmentResult({
+      testType: 'BDI-II',
+      result: `${totalScore} - ${severity.label}`,
+    });
+
+  }, [screen, totalScore, severity.label]);
+
+
 
   return (
     <>
@@ -307,6 +333,11 @@ export function Bdi2QuizPage() {
               <div className="dass-disclaimer">
                 ⚠️ این آزمون یک ابزار <strong>غربالگری</strong> است، نه روش تشخیص. نتیجه‌ی آن جایگزین ارزیابی و تشخیص روان‌شناس یا روان‌پزشک نیست.
               </div>
+              {!user && (
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                  🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
+                </div>
+              )}
               <label className="dass-consent-label">
                 <input
                   type="checkbox"
@@ -323,7 +354,7 @@ export function Bdi2QuizPage() {
                 disabled={!consent}
                 style={{ marginTop: '20px', width: '100%', justifyContent: 'center' }}
               >
-                شروع آزمون
+                {user ? 'شروع آزمون' : 'ورود / ثبت‌نام برای شروع آزمون'}
               </button>
             </Reveal>
           )}

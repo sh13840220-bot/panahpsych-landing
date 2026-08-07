@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
 
 import panahLogoLight from '../assets/images/panah_logo_light.webp';
 import panahLogoDark from '../assets/images/panah_logo_dark.webp';
@@ -55,24 +56,37 @@ export const TESTS_LIST = [
   },
 ];
 
-export const MobileMenu = React.memo(function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export const MobileMenu = React.memo(function MobileMenu({
+  isOpen,
+  onClose,
+}: MobileMenuProps) {
+  const { user } = useAuth();
+
   return (
     <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
       <div className="mobile-menu-inner">
         <NavLink to="/collaboration" onClick={onClose}>
           همکاری
         </NavLink>
+
         <NavLink to="/clients-soon" onClick={onClose}>
           مراجعه‌کنندگان
         </NavLink>
+
         <NavLink to="/assessments" onClick={onClose}>
           آزمون‌های روانشناسی
         </NavLink>
+
         <NavLink to="/articles-soon" onClick={onClose}>
           مقالات
         </NavLink>
-        <NavLink to="/auth-soon" className="mobile-auth-link" onClick={onClose}>
-          ثبت نام / ورود
+
+        <NavLink
+          to={user ? '/dashboard' : '/auth-soon'}
+          className="mobile-auth-link"
+          onClick={onClose}
+        >
+          {user ? 'پنل کاربری' : 'ثبت نام / ورود'}
         </NavLink>
       </div>
     </div>
@@ -81,6 +95,8 @@ export const MobileMenu = React.memo(function MobileMenu({ isOpen, onClose }: Mo
 
 export const Header = React.memo(function Header() {
   const { theme, toggleTheme } = useTheme();
+  const { user } = useAuth();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTestsDropdownOpen, setIsTestsDropdownOpen] = useState(false);
 
@@ -132,8 +148,11 @@ export const Header = React.memo(function Header() {
                   }
                 >
                   <span>آزمون‌های روانشناسی</span>
+
                   <svg
-                    className={`chevron-icon ${isTestsDropdownOpen ? 'open' : ''}`}
+                    className={`chevron-icon ${
+                      isTestsDropdownOpen ? 'open' : ''
+                    }`}
                     viewBox="0 0 24 24"
                     width="14"
                     height="14"
@@ -150,7 +169,10 @@ export const Header = React.memo(function Header() {
                 {isTestsDropdownOpen && (
                   <div className="nav-dropdown-menu">
                     <div className="nav-dropdown-header">
-                      <span className="dropdown-title">لیست آزمون‌های روان‌شناختی</span>
+                      <span className="dropdown-title">
+                        لیست آزمون‌های روان‌شناختی
+                      </span>
+
                       <Link
                         to="/assessments"
                         className="all-tests-link"
@@ -159,6 +181,7 @@ export const Header = React.memo(function Header() {
                         مشاهده همه ←
                       </Link>
                     </div>
+
                     <div className="nav-dropdown-list">
                       {TESTS_LIST.map((test) => (
                         <Link
@@ -168,9 +191,15 @@ export const Header = React.memo(function Header() {
                           onClick={() => setIsTestsDropdownOpen(false)}
                         >
                           <span className="item-icon">{test.icon}</span>
+
                           <div className="item-text">
-                            <span className="item-title">{test.title}</span>
-                            <span className="item-desc">{test.desc}</span>
+                            <span className="item-title">
+                              {test.title}
+                            </span>
+
+                            <span className="item-desc">
+                              {test.desc}
+                            </span>
                           </div>
                         </Link>
                       ))}
@@ -218,11 +247,11 @@ export const Header = React.memo(function Header() {
 
             {/* Sign Up / Login Pill Button */}
             <NavLink
-              to="/auth-soon"
+              to={user ? '/dashboard' : '/auth-soon'}
               className="nav-auth-btn"
               onClick={closeMenu}
-              title="ثبت نام / ورود"
-              aria-label="ثبت نام / ورود"
+              title={user ? 'پنل کاربری' : 'ثبت نام / ورود'}
+              aria-label={user ? 'پنل کاربری' : 'ثبت نام / ورود'}
             >
               <svg
                 viewBox="0 0 24 24"
@@ -237,7 +266,10 @@ export const Header = React.memo(function Header() {
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <span>ثبت نام / ورود</span>
+
+              <span>
+                {user ? 'پنل کاربری' : 'ثبت نام / ورود'}
+              </span>
             </NavLink>
 
             {/* Hamburger Button (Mobile) */}

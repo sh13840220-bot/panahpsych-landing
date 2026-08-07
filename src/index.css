@@ -1727,23 +1727,37 @@ body.dark-mode .dass-cta-box .btn-primary-pill.light-btn:hover {
   background: #c7a480;
 }
 
+/* Screen utility for print-only elements */
+.hide-on-screen-only {
+  display: none !important;
+}
+
 /* Print Stylesheet for Psychology Test Reports */
 @media print {
+  @page {
+    size: A4;
+    margin: 12mm 15mm 12mm 15mm;
+  }
+
   body {
     background: #ffffff !important;
     background-image: none !important;
     color: #1a1a1a !important;
-    font-size: 14pt !important;
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
   }
 
   header,
   footer,
   .back-link,
   .dass-cta-box,
+  .collab-note,
   .no-print,
   button,
   .progress-header,
-  .progress-bar-bg {
+  .progress-bar-bg,
+  .smart-tab-nav,
+  .smart-category-filters {
     display: none !important;
   }
 
@@ -1755,6 +1769,7 @@ body.dark-mode .dass-cta-box .btn-primary-pill.light-btn:hover {
   .container {
     max-width: 100% !important;
     padding: 0 !important;
+    margin: 0 !important;
   }
 
   .glass,
@@ -1765,17 +1780,20 @@ body.dark-mode .dass-cta-box .btn-primary-pill.light-btn:hover {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     padding: 0 !important;
+    color: #1a1a1a !important;
   }
 
   .result-item {
     background: #f8f9f6 !important;
     border: 1px solid #dcdfd8 !important;
     break-inside: avoid;
+    page-break-inside: avoid;
+    color: #1a1a1a !important;
   }
 
   .dass-title {
     color: #1a2a18 !important;
-    font-size: 20pt !important;
+    font-size: 18pt !important;
   }
 
   .dass-disclaimer {
@@ -1790,7 +1808,72 @@ body.dark-mode .dass-cta-box .btn-primary-pill.light-btn:hover {
     justify-content: space-between;
     border-bottom: 2px solid #20301E;
     padding-bottom: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Show hidden elements in print */
+  .hide-on-screen-only {
+    display: block !important;
+  }
+
+  .smart-recommendation-card.hide-on-screen-only {
+    display: flex !important;
+  }
+
+  .smart-recs-section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .smart-exercise-section {
+    display: block !important;
+    margin-top: 20px !important;
+    background: #f8faf8 !important;
+    border: 1px solid #dcdfd8 !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .smart-recommendation-card {
+    background: #ffffff !important;
+    border: 1px solid #dcdfd8 !important;
+    box-shadow: none !important;
+    color: #1a1a1a !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 10px !important;
+  }
+
+  .smart-recommendation-card h4,
+  .smart-recommendation-card p {
+    color: #1a1a1a !important;
+  }
+
+  .smart-analysis-container {
+    background: #ffffff !important;
+    border: 1px solid #dcdfd8 !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+    color: #1a1a1a !important;
+  }
+
+  .smart-analysis-container h3,
+  .smart-analysis-container h4,
+  .smart-analysis-container p,
+  .smart-analysis-container li {
+    color: #1a1a1a !important;
+  }
+
+  .dass-warn-box {
+    background: #fef2f2 !important;
+    border: 1px solid #fca5a5 !important;
+    color: #991b1b !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
 
@@ -1833,4 +1916,116 @@ body.dark-mode .smart-recommendation-card h4 {
 body.dark-mode .smart-recommendation-card p {
   color: #D8D2C8 !important;
 }
+
+/* ============ Auth & Dashboard UI ============ */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+  margin: 0 auto 24px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  backdrop-filter: blur(10px);
+}
+
+body.dark-mode .auth-input {
+  background: rgba(45, 45, 40, 0.65);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.auth-input:focus {
+  border-color: var(--color-primary-dark, #7FA39C);
+  box-shadow: 0 0 0 3px rgba(168, 197, 192, 0.3);
+}
+
+.auth-text-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 200ms ease;
+  display: inline-block;
+}
+
+.auth-text-btn:hover {
+  color: var(--text-primary);
+}
+
+.auth-msg-error {
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(217, 83, 79, 0.1);
+  border: 1px solid rgba(217, 83, 79, 0.3);
+  color: #c9302c;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+body.dark-mode .auth-msg-error {
+  background: rgba(217, 83, 79, 0.2);
+  color: #ff8a80;
+}
+
+.auth-msg-success {
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(60, 141, 64, 0.1);
+  border: 1px solid rgba(60, 141, 64, 0.3);
+  color: #2e7d32;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+body.dark-mode .auth-msg-success {
+  background: rgba(60, 141, 64, 0.2);
+  color: #81c784;
+}
+
+.dashboard-card {
+  text-align: right;
+}
+
+.dashboard-result-item {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(12px);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+body.dark-mode .dashboard-result-item {
+  background: rgba(45, 45, 40, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
 

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 import { SmartAnalysisCard } from '../components/SmartAnalysisCard';
+import { saveAssessmentResult } from '../lib/saveAssessmentResult';
 
 export interface Question {
   id: number;
@@ -44,12 +46,18 @@ function getSeverity(score: number) {
 
 export function Gad7QuizPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const resultSavedRef = useRef(false);
   const [screen, setScreen] = useState<'intro' | 'quiz' | 'result'>('intro');
   const [consent, setConsent] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(GAD7_QUESTIONS.length).fill(null));
 
   const handleStart = () => {
+    if (!user) {
+      navigate('/auth-soon');
+      return;
+    }
     if (!consent) return;
     setScreen('quiz');
   };
@@ -75,6 +83,7 @@ export function Gad7QuizPage() {
   };
 
   const handleRestart = () => {
+    resultSavedRef.current = false;
     setCurrentIndex(0);
     setAnswers(new Array(GAD7_QUESTIONS.length).fill(null));
     setConsent(false);
@@ -83,6 +92,18 @@ export function Gad7QuizPage() {
 
   const totalScore = answers.reduce((sum, v) => sum + (v || 0), 0);
   const severity = getSeverity(totalScore);
+
+  useEffect(() => {
+    if (screen !== 'result') return;
+    if (resultSavedRef.current) return;
+
+    resultSavedRef.current = true;
+
+    saveAssessmentResult({
+      testType: 'GAD-7',
+      result: `${totalScore} - ${severity.label}`,
+    });
+  }, [screen, totalScore, severity.label]);
 
   return (
     <>
@@ -109,6 +130,11 @@ export function Gad7QuizPage() {
               <div className="dass-disclaimer">
                 ⚠️ این آزمون یک ابزار <strong>غربالگری</strong> است، نه تشخیصی. نتیجه‌ی آن جایگزین ارزیابی روان‌شناس یا روان‌پزشک نیست.
               </div>
+              {!user && (
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                  🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
+                </div>
+              )}
               <label className="dass-consent-label">
                 <input
                   type="checkbox"
@@ -125,7 +151,7 @@ export function Gad7QuizPage() {
                 disabled={!consent}
                 style={{ marginTop: '20px', width: '100%', justifyContent: 'center' }}
               >
-                شروع آزمون
+                {user ? 'شروع آزمون' : 'ورود / ثبت‌نام برای شروع آزمون'}
               </button>
             </Reveal>
           )}
@@ -246,7 +272,7 @@ export function Gad7QuizPage() {
 
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer showCollabNote={false} isShort={true} />
     </>
   );
 }
