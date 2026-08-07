@@ -10,6 +10,51 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
+export const TESTS_LIST = [
+  {
+    slug: 'dass-21',
+    title: 'ارزیابی افسردگی، اضطراب و استرس (DASS-21)',
+    desc: 'سنجش سریع سه بعد هیجانی اصلی',
+    icon: '📊',
+    path: '/assessments/dass-21',
+  },
+  {
+    slug: 'gad-7',
+    title: 'غربالگری اضطراب فراگیر (GAD-7)',
+    desc: 'ارزیابی میزان نگرانی و اضطراب',
+    icon: '🌿',
+    path: '/assessments/gad-7',
+  },
+  {
+    slug: 'bdi-ii',
+    title: 'ارزیابی افسردگی بک (BDI-II)',
+    desc: 'سنجش شدت نشانه شناسی افسردگی',
+    icon: '🌧️',
+    path: '/assessments/bdi-ii',
+  },
+  {
+    slug: 'rosenberg',
+    title: 'مقیاس عزت نفس روزنبرگ (RSES)',
+    desc: 'ارزیابی حس ارزشمندی و عزت نفس',
+    icon: '💎',
+    path: '/assessments/rosenberg',
+  },
+  {
+    slug: 'mbti',
+    title: 'شخصیت‌شناسی مایرز-بریگز (MBTI)',
+    desc: 'شناخت ترجیحات شخصیتی ۱۶ گانه',
+    icon: '🧩',
+    path: '/assessments/mbti',
+  },
+  {
+    slug: 'neo-ffi',
+    title: 'پنج عامل بزرگ شخصیت (NEO-FFI)',
+    desc: 'تحلیل ابعاد ۵‌گانه روان‌رنجورخویی، برون‌گرایی و...',
+    icon: '🌌',
+    path: '/assessments/neo-ffi',
+  },
+];
+
 export const MobileMenu = React.memo(function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   return (
     <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
@@ -20,7 +65,7 @@ export const MobileMenu = React.memo(function MobileMenu({ isOpen, onClose }: Mo
         <NavLink to="/clients-soon" onClick={onClose}>
           مراجعه‌کنندگان
         </NavLink>
-        <NavLink to="/tests-soon" onClick={onClose}>
+        <NavLink to="/assessments" onClick={onClose}>
           آزمون‌های روانشناسی
         </NavLink>
         <NavLink to="/articles-soon" onClick={onClose}>
@@ -37,9 +82,11 @@ export const MobileMenu = React.memo(function MobileMenu({ isOpen, onClose }: Mo
 export const Header = React.memo(function Header() {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTestsDropdownOpen, setIsTestsDropdownOpen] = useState(false);
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
+    setIsTestsDropdownOpen(false);
   }, []);
 
   const toggleMenu = useCallback(() => {
@@ -72,7 +119,66 @@ export const Header = React.memo(function Header() {
             {/* Desktop Nav Links */}
             <div className="nav-links">
               <NavLink to="/clients-soon">مراجعه‌کنندگان</NavLink>
-              <NavLink to="/tests-soon">آزمون‌های روانشناسی</NavLink>
+
+              <div
+                className="nav-dropdown-wrapper"
+                onMouseEnter={() => setIsTestsDropdownOpen(true)}
+                onMouseLeave={() => setIsTestsDropdownOpen(false)}
+              >
+                <NavLink
+                  to="/assessments"
+                  className={({ isActive }) =>
+                    `nav-dropdown-trigger ${isActive ? 'active' : ''}`
+                  }
+                >
+                  <span>آزمون‌های روانشناسی</span>
+                  <svg
+                    className={`chevron-icon ${isTestsDropdownOpen ? 'open' : ''}`}
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </NavLink>
+
+                {isTestsDropdownOpen && (
+                  <div className="nav-dropdown-menu">
+                    <div className="nav-dropdown-header">
+                      <span className="dropdown-title">لیست آزمون‌های روان‌شناختی</span>
+                      <Link
+                        to="/assessments"
+                        className="all-tests-link"
+                        onClick={() => setIsTestsDropdownOpen(false)}
+                      >
+                        مشاهده همه ←
+                      </Link>
+                    </div>
+                    <div className="nav-dropdown-list">
+                      {TESTS_LIST.map((test) => (
+                        <Link
+                          key={test.slug}
+                          to={test.path}
+                          className="dropdown-item"
+                          onClick={() => setIsTestsDropdownOpen(false)}
+                        >
+                          <span className="item-icon">{test.icon}</span>
+                          <div className="item-text">
+                            <span className="item-title">{test.title}</span>
+                            <span className="item-desc">{test.desc}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <NavLink to="/articles-soon">مقالات</NavLink>
             </div>
 

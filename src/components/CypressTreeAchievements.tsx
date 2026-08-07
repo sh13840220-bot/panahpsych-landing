@@ -212,12 +212,20 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
           border-radius: 24px;
           text-align: center;
           border: 1.5px solid var(--color-primary-dark);
-          background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 255, 255, 0.85) 100%);
+          background: var(--bg-card);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
+        }
+
+        body.dark-mode .horizontal-hub-card {
+          border-color: rgba(211, 221, 208, 0.35);
+          background: rgba(90, 86, 79, 0.85);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
         }
 
         .hub-icon-wrapper {
