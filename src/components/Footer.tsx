@@ -57,21 +57,27 @@ export function Footer({ showCollabNote = false, isShort = false }: FooterProps)
             </div>
           </div>
         </div>
-       <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '20px 0' }}>
-  
-    referrerPolicy="origin"
-    target="_blank"
-    href="https://trustseal.enamad.ir/?id=770273&Code=1PHIsuWZnE85xB0P3zWWHGs8VEmTCh3x"
-  >
-    <img
-      referrerPolicy="origin"
-      src="https://trustseal.enamad.ir/logo.aspx?id=770273&Code=1PHIsuWZnE85xB0P3zWWHGs8VEmTCh3x"
-      alt=""
-      style={{ cursor: 'pointer' }}
-      code="1PHIsuWZnE85xB0P3zWWHGs8VEmTCh3x"
-    />
-  </a>
-</div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            margin: '16px 0',
+          }}
+        >
+          <a
+            referrerPolicy="origin"
+            target="_blank"
+            href="https://trustseal.enamad.ir/?id=770273&Code=1PHIsuWZnE85xB0P3zWWHGs8VEmTCh3x"
+          >
+            <img
+              referrerPolicy="origin"
+              src="https://trustseal.enamad.ir/logo.aspx?id=770273&Code=1PHIsuWZnE85xB0P3zWWHGs8VEmTCh3x"
+              alt=""
+              style={{ cursor: 'pointer' }}
+            />
+          </a>
+        </div>
       </footer>
     </>
   );
