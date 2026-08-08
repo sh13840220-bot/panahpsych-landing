@@ -411,18 +411,7 @@ export function generateSmartAnalysis(testType: TestType, data: any): AnalysisRe
 
 export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data }) => {
   const [activeTab, setActiveTab] = useState<'recs' | 'exercise'>('recs');
-  const [selectedCategory, setSelectedCategory] = useState<CategoryType | 'همه'>('همه');
   const analysis = generateSmartAnalysis(testType, data);
-
-  // Available categories in recommendations
-  const presentCategories = Array.from(
-    new Set(analysis.recommendations.map((r) => r.category))
-  ) as CategoryType[];
-
-  const filteredRecommendations =
-    selectedCategory === 'همه'
-      ? analysis.recommendations
-      : analysis.recommendations.filter((r) => r.category === selectedCategory);
 
   return (
     <div
@@ -569,82 +558,9 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
         className={`smart-recs-section ${activeTab !== 'recs' ? 'hide-on-screen-only' : ''}`}
         style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
       >
-        {/* Category Filter Pills */}
-        <div
-          className="smart-category-filters no-print"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            overflowX: 'auto',
-            paddingBottom: '6px',
-            scrollbarWidth: 'none',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '12px',
-              fontWeight: 700,
-              color: '#6B6B65',
-              marginLeft: '4px',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            فیلتر دسته:
-          </span>
-          <button
-            type="button"
-            onClick={() => setSelectedCategory('همه')}
-            style={{
-              fontSize: '12px',
-              fontWeight: 700,
-              padding: '4px 12px',
-              borderRadius: '999px',
-              border: selectedCategory === 'همه' ? '1px solid #7FA39C' : '1px solid transparent',
-              background: selectedCategory === 'همه' ? '#7FA39C' : 'rgba(238, 241, 230, 0.7)',
-              color: selectedCategory === 'همه' ? '#FFFFFF' : '#4A5442',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            همه موارد
-          </button>
-          {presentCategories.map((cat) => {
-            const conf = CATEGORY_CONFIG[cat];
-            const isSel = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  padding: '4px 12px',
-                  borderRadius: '999px',
-                  border: `1px solid ${conf?.borderClass || 'transparent'}`,
-                  background: isSel ? conf?.textClass || '#223018' : conf?.bgClass || '#EEF1E6',
-                  color: isSel ? '#FFFFFF' : conf?.textClass || '#223018',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  whiteSpace: 'nowrap',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                <span>{conf?.icon}</span>
-                <span>{conf?.label || cat}</span>
-              </button>
-            );
-          })}
-        </div>
-
         {/* Cards List */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {analysis.recommendations.map((item, idx) => {
-            const isFilteredOutOnScreen = selectedCategory !== 'همه' && item.category !== selectedCategory;
             const catConfig = CATEGORY_CONFIG[item.category] || {
               label: item.category,
               icon: item.icon,
@@ -673,7 +589,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
                     : '0 4px 14px rgba(32, 48, 30, 0.03)',
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
-                className={`smart-recommendation-card ${isFilteredOutOnScreen ? 'hide-on-screen-only' : ''}`}
+                className="smart-recommendation-card"
               >
                 {/* Icon box */}
                 <div

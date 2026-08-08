@@ -21,7 +21,14 @@ export function Footer({ showCollabNote = false, isShort = false }: FooterProps)
       )}
       <footer className={isShort ? 'footer-short' : ''}>
         <div className="container footer-inner">
-          <span className="footer-text">پناه © ۱۴۰۴</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxWidth: '420px' }}>
+            <span className="footer-text" style={{ fontWeight: 700 }}>پناه © ۱۴۰۴</span>
+            <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+              <span>تمامی حقوق مادی و معنوی این وب‌سایت متعلق به پناه است.</span>
+              <br />
+              <span>کپی یا بازنشر بخش یا کل مطالب تنها با کسب مجوز مکتوب امکان‌پذیر است.</span>
+            </p>
+          </div>
           <div className="footer-social-group">
             <a
               href="https://instagram.com/panah.psych"
@@ -58,6 +65,24 @@ export function Footer({ showCollabNote = false, isShort = false }: FooterProps)
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
               دنبال کردن در فیس‌بوک
+            </a>
+            <a
+              href="https://www.threads.com/@panah.psych"
+              className="footer-social"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <path d="M12 15.5c-1.75 0-3.15-1.4-3.15-3.15s1.4-3.15 3.15-3.15 3.15 1.4 3.15 3.15v1.15c0 1.05.85 1.9 1.9 1.9s1.9-.85 1.9-1.9V12c0-3.85-3.1-6.95-6.95-6.95S5.05 8.15 5.05 12s3.1 6.95 6.95 6.95c1.85 0 3.5-.75 4.75-1.95" />
+              </svg>
+              دنبال کردن در تردز
             </a>
             <div className="footer-social footer-social-disabled">
               <svg

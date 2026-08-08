@@ -17,6 +17,10 @@ import { NeoFfiQuizPage } from './pages/NeoFfiQuizPage';
 import { ArticlesSoonPage } from './pages/ArticlesSoonPage';
 import { AuthSoonPage } from './pages/AuthSoonPage';
 import { AssessmentResultsPage } from './pages/AssessmentResultsPage';
+import PsychologistLogin from './pages/PsychologistLogin';
+import PsychologistChangePassword from './pages/PsychologistChangePassword';
+import PsychologistDashboard from './pages/PsychologistDashboard';
+import PsychologistProtectedRoute from './pages/PsychologistProtectedRoute';
 
 export default function App() {
   useEffect(() => {
@@ -48,6 +52,21 @@ export default function App() {
         <Route path="/auth-soon" element={<AuthSoonPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/assessment-results" element={<AssessmentResultsPage />} />
+
+        {/* ورود جداگانه‌ی روانشناسان */}
+        <Route path="/ravanshenas/login" element={<PsychologistLogin />} />
+        <Route
+          path="/ravanshenas/change-password"
+          element={<PsychologistChangePassword />}
+        />
+        <Route
+          path="/ravanshenas/dashboard"
+          element={
+            <PsychologistProtectedRoute>
+              <PsychologistDashboard />
+            </PsychologistProtectedRoute>
+          }
+        />
       </Routes>
       <ScrollToTop />
     </>

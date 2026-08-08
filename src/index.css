@@ -1,5 +1,96 @@
 @import "tailwindcss";
 
+/* ============ Abar Font Family Definitions ============ */
+@font-face {
+  font-family: 'AbarLow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/AbarLow-Regular.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarLow-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/AbarLow-SemiBold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarLow-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/AbarLow-Bold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarLow-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/AbarLow-ExtraBold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarLow-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarLow';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/AbarLow-Black.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarLow-Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/AbarMid-Regular.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/AbarMid-SemiBold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/AbarMid-Bold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/AbarMid-ExtraBold.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AbarMid';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/AbarMid-Black.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-Black.woff') format('woff');
+}
+
 /* ============ Design Tokens ============ */
 :root {
   /* Light Mode (Brand Identity Specification) */
@@ -55,7 +146,7 @@ html {
 }
 
 body {
-  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  font-family: 'AbarMid', 'AbarLow', 'Vazirmatn', Tahoma, sans-serif;
   background-color: var(--bg-main);
   background-image:
     radial-gradient(circle at 85% 0%, rgba(182, 193, 168, 0.35) 0%, rgba(182, 193, 168, 0) 50%),
