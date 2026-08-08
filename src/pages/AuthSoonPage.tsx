@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 
 type AuthMode = 'login' | 'signup' | 'forgot';
 
 export function AuthSoonPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const { user } = useAuth();
+
+  const redirectTarget = (location.state as { from?: string })?.from || searchParams.get('redirect') || '/';
+
   const [mode, setMode] = useState<AuthMode>('login');
 
   const [fullName, setFullName] = useState('');
@@ -17,6 +25,13 @@ export function AuthSoonPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
+  // If user is already logged in, redirect them
+  useEffect(() => {
+    if (user && !message) {
+      navigate(redirectTarget, { replace: true });
+    }
+  }, [user]);
 
   const resetMessages = () => {
     setMessage('');
@@ -55,7 +70,7 @@ export function AuthSoonPage() {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
@@ -70,12 +85,18 @@ export function AuthSoonPage() {
         return;
       }
 
-      setMessage(
-        'حساب شما ساخته شد. لطفاً ایمیل خود را بررسی کنید و لینک تأیید حساب را بزنید.'
-      );
-
-      setPassword('');
-      setConfirmPassword('');
+      if (data?.session) {
+        setMessage('حساب شما با موفقیت ساخته شد و وارد شدید. در حال انتقال...');
+        setTimeout(() => {
+          navigate(redirectTarget, { replace: true });
+        }, 800);
+      } else {
+        setMessage(
+          'حساب شما ساخته شد. لطفاً ایمیل خود را بررسی کنید و لینک تأیید حساب را بزنید.'
+        );
+        setPassword('');
+        setConfirmPassword('');
+      }
     } catch (err: any) {
       setError(err?.message || 'خطا در ارتباط با سرور.');
     } finally {
@@ -107,7 +128,10 @@ export function AuthSoonPage() {
         return;
       }
 
-      setMessage('ورود با موفقیت انجام شد.');
+      setMessage('ورود با موفقیت انجام شد. در حال انتقال...');
+      setTimeout(() => {
+        navigate(redirectTarget, { replace: true });
+      }, 700);
     } catch (err: any) {
       setError(err?.message || 'خطا در ارتباط با سرور.');
     } finally {

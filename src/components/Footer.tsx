@@ -42,6 +42,23 @@ export function Footer({ showCollabNote = false, isShort = false }: FooterProps)
               </svg>
               دنبال کردن در اینستاگرام
             </a>
+            <a
+              href="https://facebook.com/panahpsych"
+              className="footer-social"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+              دنبال کردن در فیس‌بوک
+            </a>
             <div className="footer-social footer-social-disabled">
               <svg
                 viewBox="0 0 24 24"

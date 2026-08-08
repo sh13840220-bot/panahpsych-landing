@@ -36,6 +36,7 @@ export async function saveAssessmentResult({
         user_id: user.id,
         test_type: testType,
         result,
+        completed_at: new Date().toISOString(),
       });
 
     if (error) {

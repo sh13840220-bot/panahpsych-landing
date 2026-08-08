@@ -131,46 +131,58 @@ export function DashboardPage() {
             <hr style={{ margin: '28px 0', border: 'none', borderTop: '1px solid var(--divider)' }} />
 
 
-            <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '16px', color: 'var(--text-primary)' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-primary)' }}>
               آزمون‌های من
             </h2>
 
 
             {resultsLoading && (
               <p style={{ color: 'var(--text-secondary)' }}>
-                در حال دریافت نتایج...
+                در حال دریافت وضعیت آزمون‌ها...
               </p>
             )}
 
 
-            {!resultsLoading && results.length === 0 && (
-              <p style={{ color: 'var(--text-secondary)' }}>
-                هنوز آزمونی انجام نداده‌اید.
-              </p>
-            )}
+            {!resultsLoading && (
+              <div
+                style={{
+                  padding: '20px',
+                  borderRadius: '16px',
+                  background: 'rgba(255, 255, 255, 0.4)',
+                  border: '1px solid var(--border-glass)',
+                  textAlign: 'center',
+                }}
+              >
+                <p style={{ margin: '0 0 16px', fontSize: '15px', color: 'var(--text-primary)' }}>
+                  تعداد ارزیابی‌های ثبت‌شده شما: <strong>{results.length} آزمون</strong>
+                </p>
 
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {results.map((item) => (
                 <div
-                  key={item.id}
-                  className="dashboard-result-item"
+                  style={{
+                    display: 'flex',
+                    gap: '12px',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                  }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <strong style={{ fontSize: '16px', color: 'var(--text-primary)' }}>
-                      {item.test_type}
-                    </strong>
-                    <small style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
-                      {new Date(item.completed_at).toLocaleDateString('fa-IR')}
-                    </small>
-                  </div>
+                  <Link
+                    to="/assessment-results"
+                    className="btn-primary"
+                    style={{ padding: '10px 22px', fontSize: '15px' }}
+                  >
+                    مشاهده نتایج آزمون‌ها
+                  </Link>
 
-                  <p style={{ margin: '4px 0 0', fontSize: '14px', color: 'var(--text-secondary)' }}>
-                    نتیجه: <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{item.result}</span>
-                  </p>
+                  <Link
+                    to="/assessments"
+                    className="btn-primary"
+                    style={{ padding: '10px 22px', fontSize: '15px', opacity: 0.9 }}
+                  >
+                    شرکت در آزمون جدید
+                  </Link>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
 
 
             <div
@@ -182,24 +194,14 @@ export function DashboardPage() {
                 flexWrap: 'wrap',
               }}
             >
-
-              <Link
-                to="/assessments"
-                className="btn-primary"
-              >
-                آزمون‌های روانشناسی
-              </Link>
-
-
               <button
                 type="button"
                 className="btn-primary"
-                style={{ opacity: 0.9 }}
+                style={{ opacity: 0.8, fontSize: '14px', background: 'rgba(43, 43, 40, 0.8)' }}
                 onClick={handleSignOut}
               >
                 خروج از حساب
               </button>
-
             </div>
 
           </Reveal>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
@@ -243,6 +243,7 @@ function getSeverity(score: number) {
 
 export function Bdi2QuizPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const resultSavedRef = useRef(false);
   
@@ -253,7 +254,9 @@ export function Bdi2QuizPage() {
 
   const handleStart = () => {
     if (!user) {
-      navigate('/auth-soon');
+      navigate(`/auth-soon?redirect=${encodeURIComponent(location.pathname)}`, {
+        state: { from: location.pathname },
+      });
       return;
     }
     if (!consent) return;

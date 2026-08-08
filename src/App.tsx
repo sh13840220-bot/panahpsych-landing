@@ -16,6 +16,7 @@ import { MbtiQuizPage } from './pages/MbtiQuizPage';
 import { NeoFfiQuizPage } from './pages/NeoFfiQuizPage';
 import { ArticlesSoonPage } from './pages/ArticlesSoonPage';
 import { AuthSoonPage } from './pages/AuthSoonPage';
+import { AssessmentResultsPage } from './pages/AssessmentResultsPage';
 
 export default function App() {
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/articles-soon" element={<ArticlesSoonPage />} />
         <Route path="/auth-soon" element={<AuthSoonPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/assessment-results" element={<AssessmentResultsPage />} />
       </Routes>
       <ScrollToTop />
     </>
