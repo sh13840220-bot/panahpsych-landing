@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
+import { loginColleague } from '../lib/colleagueAuth';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 
-type AuthMode = 'login' | 'signup' | 'forgot';
+type AuthMode = 'login' | 'signup' | 'forgot' | 'colleague';
 
 export function AuthSoonPage() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export function AuthSoonPage() {
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [colleagueUsername, setColleagueUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -26,9 +28,9 @@ export function AuthSoonPage() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
-  // If user is already logged in, redirect them
+  // If user is already logged in as general user, redirect them
   useEffect(() => {
-    if (user && !message) {
+    if (user && !message && mode !== 'colleague') {
       navigate(redirectTarget, { replace: true });
     }
   }, [user]);
@@ -40,10 +42,34 @@ export function AuthSoonPage() {
 
   const checkConfig = () => {
     if (!isSupabaseConfigured) {
-      setError('متغیرهای محیطی Supabase (VITE_SUPABASE_URL و VITE_SUPABASE_PUBLISHABLE_KEY) تنظیم نشده‌اند.');
+      setError('متغیرهای محیطی Supabase تنظیم نشده‌اند.');
       return false;
     }
     return true;
+  };
+
+  const handleColleagueLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    resetMessages();
+
+    if (!colleagueUsername.trim() || !password) {
+      setError('لطفاً یوزرنیم و رمز عبور را وارد کنید.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      loginColleague(colleagueUsername, password);
+      setMessage('ورود با موفقیت انجام شد. در حال انتقال به سامانه همکاران...');
+      setTimeout(() => {
+        window.location.href = 'https://app.panahpsych.ir';
+      }, 700);
+    } catch (err: any) {
+      setError('خطا در ورود به حساب همکار.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -186,16 +212,44 @@ export function AuthSoonPage() {
     <>
       <main className="soon-container">
         <div
-          className="container"
+          className="container flex justify-center items-center w-full"
           style={{
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
           }}
         >
-          <Reveal className="soon-card glass">
+          <Reveal className="soon-card glass" style={{ maxWidth: '680px', width: '100%', margin: '0 auto' }}>
+            {/* Top Auth Mode Tabs */}
+            <div className="flex bg-white/50 p-1 rounded-full border border-gray-200/50 mb-6 max-w-sm mx-auto shadow-xs">
+              <button
+                type="button"
+                onClick={() => changeMode('login')}
+                className={`flex-1 py-2 px-3 text-xs md:text-sm font-semibold rounded-full transition-all ${
+                  mode === 'login' || mode === 'signup' || mode === 'forgot'
+                    ? 'bg-[var(--color-primary)] text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                ورود مراجعین
+              </button>
+              <button
+                type="button"
+                onClick={() => changeMode('colleague')}
+                className={`flex-1 py-2 px-3 text-xs md:text-sm font-semibold rounded-full transition-all ${
+                  mode === 'colleague'
+                    ? 'bg-[var(--color-primary)] text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                ورود همکاران
+              </button>
+            </div>
+
             {mode === 'login' && (
               <>
-                <h1>ورود به حساب</h1>
+                <h1>ورود به حساب مراجعین</h1>
 
                 <p>
                   برای ورود به حساب کاربری پناه، اطلاعات خود را وارد کنید.
@@ -259,6 +313,83 @@ export function AuthSoonPage() {
                       ثبت‌نام کنید
                     </button>
                   </p>
+                </div>
+              </>
+            )}
+
+            {mode === 'colleague' && (
+              <>
+                <h1>ورود همکاران و روانشناسان</h1>
+
+                <p>
+                  ورود به پنل کاربری ویژه مشاوران و روانشناسان همکار پناه با یوزرنیم و رمز عبور.
+                </p>
+
+                <form onSubmit={handleColleagueLogin} className="auth-form">
+                  <input
+                    type="text"
+                    className="auth-input"
+                    placeholder="یوزرنیم (نام کاربری همکار)"
+                    value={colleagueUsername}
+                    onChange={(e) => setColleagueUsername(e.target.value)}
+                    autoComplete="username"
+                    required
+                  />
+
+                  <input
+                    type="password"
+                    className="auth-input"
+                    placeholder="رمز عبور"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                  />
+
+                  {error && (
+                    <div className="auth-msg-error">{error}</div>
+                  )}
+
+                  {message && (
+                    <div className="auth-msg-success">{message}</div>
+                  )}
+
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    disabled={loading}
+                    style={{ width: '100%', marginTop: '8px' }}
+                  >
+                    {loading ? 'در حال بررسی...' : 'ورود و انتقال به سامانه همکاران'}
+                  </button>
+                </form>
+
+                <div className="bg-white/60 dark:bg-white/10 p-3.5 rounded-2xl border border-gray-200/50 dark:border-white/10 my-4 text-center">
+                  <p className="text-xs text-[var(--text-secondary)] mb-2 font-medium">
+                    ورود سریع با حساب نمونه:
+                  </p>
+                  <div className="flex gap-2 justify-center flex-wrap">
+                    <button
+                      type="button"
+                      className="text-xs text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-teal-900/40 hover:bg-teal-100 px-3 py-1.5 rounded-full border border-teal-200 dark:border-teal-700 transition-all font-medium"
+                      onClick={() => {
+                        setColleagueUsername('dr_tehrani');
+                        setPassword('123456');
+                      }}
+                    >
+                      دکتر مریم تهرانی
+                    </button>
+                    <button
+                      type="button"
+                      className="text-xs text-slate-900 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 transition-all font-medium"
+                      onClick={() => {
+                        setColleagueUsername('dr_alavi');
+                        setPassword('123456');
+                      }}
+                    >
+                      دکتر علی علوی
+                    </button>
+                  </div>
                 </div>
               </>
             )}

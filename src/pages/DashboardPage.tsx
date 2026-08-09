@@ -103,80 +103,57 @@ export function DashboardPage() {
 
   return (
     <>
-      <main className="soon-container">
-        <div className="container">
-          <Reveal className="soon-card glass dashboard-card">
+      <main className="soon-container main-content-wrapper user-dashboard-page">
+        <div className="container dashboard-container">
+          <Reveal className="soon-card glass dashboard-card user-panel-box">
 
-            <h1 style={{ fontSize: '38px', marginBottom: '12px' }}>
+            <h1 className="user-panel-title">
               سلام، {displayName} 👋
             </h1>
 
-            <p style={{ marginBottom: '20px' }}>
+            <p className="user-panel-subtitle">
               به پنل کاربری پناه خوش آمدید.
             </p>
 
-
-            <div style={{ marginTop: '16px', padding: '16px 20px', borderRadius: '16px', background: 'rgba(255, 255, 255, 0.4)', border: '1px solid var(--border-glass)' }}>
-              <p style={{ margin: 0, fontSize: '15px' }}>
-                <strong>ایمیل:</strong>{' '}
-                {profile?.email || user.email}
+            <div className="user-panel-info-box">
+              <p className="user-panel-info-text">
+                <strong>ایمیل:</strong> {profile?.email || user.email}
               </p>
 
               {profileLoading && (
-                <p style={{ margin: '8px 0 0', fontSize: '13px', color: 'var(--text-secondary)' }}>در حال دریافت اطلاعات پروفایل...</p>
+                <p className="user-panel-loading">در حال دریافت اطلاعات پروفایل...</p>
               )}
             </div>
 
+            <hr className="user-panel-divider" />
 
-            <hr style={{ margin: '28px 0', border: 'none', borderTop: '1px solid var(--divider)' }} />
-
-
-            <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-primary)' }}>
+            <h2 className="user-panel-section-title">
               آزمون‌های من
             </h2>
 
-
             {resultsLoading && (
-              <p style={{ color: 'var(--text-secondary)' }}>
+              <p className="user-panel-loading">
                 در حال دریافت وضعیت آزمون‌ها...
               </p>
             )}
 
-
             {!resultsLoading && (
-              <div
-                style={{
-                  padding: '20px',
-                  borderRadius: '16px',
-                  background: 'rgba(255, 255, 255, 0.4)',
-                  border: '1px solid var(--border-glass)',
-                  textAlign: 'center',
-                }}
-              >
-                <p style={{ margin: '0 0 16px', fontSize: '15px', color: 'var(--text-primary)' }}>
+              <div className="user-panel-results-box">
+                <p className="user-panel-results-count">
                   تعداد ارزیابی‌های ثبت‌شده شما: <strong>{results.length} آزمون</strong>
                 </p>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '12px',
-                    justifyContent: 'center',
-                    flexWrap: 'wrap',
-                  }}
-                >
+                <div className="user-panel-btn-group">
                   <Link
                     to="/assessment-results"
-                    className="btn-primary"
-                    style={{ padding: '10px 22px', fontSize: '15px' }}
+                    className="user-panel-btn-primary"
                   >
                     مشاهده نتایج آزمون‌ها
                   </Link>
 
                   <Link
                     to="/assessments"
-                    className="btn-primary"
-                    style={{ padding: '10px 22px', fontSize: '15px', opacity: 0.9 }}
+                    className="user-panel-btn-secondary"
                   >
                     شرکت در آزمون جدید
                   </Link>
@@ -184,20 +161,10 @@ export function DashboardPage() {
               </div>
             )}
 
-
-            <div
-              style={{
-                display: 'flex',
-                gap: '12px',
-                justifyContent: 'center',
-                marginTop: '32px',
-                flexWrap: 'wrap',
-              }}
-            >
+            <div className="user-panel-actions">
               <button
                 type="button"
-                className="btn-primary"
-                style={{ opacity: 0.8, fontSize: '14px', background: 'rgba(43, 43, 40, 0.8)' }}
+                className="user-panel-btn-logout"
                 onClick={handleSignOut}
               >
                 خروج از حساب

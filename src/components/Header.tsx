@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -62,6 +62,9 @@ export const MobileMenu = React.memo(function MobileMenu({
 }: MobileMenuProps) {
   const { user } = useAuth();
 
+  const targetPath = user ? '/dashboard' : '/auth-soon';
+  const labelText = user ? 'پنل کاربری' : 'ثبت نام / ورود';
+
   return (
     <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
       <div className="mobile-menu-inner">
@@ -82,11 +85,11 @@ export const MobileMenu = React.memo(function MobileMenu({
         </NavLink>
 
         <NavLink
-          to={user ? '/dashboard' : '/auth-soon'}
+          to={targetPath}
           className="mobile-auth-link"
           onClick={onClose}
         >
-          {user ? 'پنل کاربری' : 'ثبت نام / ورود'}
+          {labelText}
         </NavLink>
       </div>
     </div>
@@ -96,6 +99,9 @@ export const MobileMenu = React.memo(function MobileMenu({
 export const Header = React.memo(function Header() {
   const { theme, toggleTheme } = useTheme();
   const { user } = useAuth();
+
+  const targetPath = user ? '/dashboard' : '/auth-soon';
+  const labelText = user ? 'پنل کاربری' : 'ثبت نام / ورود';
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTestsDropdownOpen, setIsTestsDropdownOpen] = useState(false);
@@ -108,6 +114,7 @@ export const Header = React.memo(function Header() {
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
+
 
   const currentLogo = theme === 'dark' ? panahLogoDark : panahLogoLight;
 
@@ -247,11 +254,11 @@ export const Header = React.memo(function Header() {
 
             {/* Sign Up / Login Pill Button */}
             <NavLink
-              to={user ? '/dashboard' : '/auth-soon'}
+              to={targetPath}
               className="nav-auth-btn"
               onClick={closeMenu}
-              title={user ? 'پنل کاربری' : 'ثبت نام / ورود'}
-              aria-label={user ? 'پنل کاربری' : 'ثبت نام / ورود'}
+              title={labelText}
+              aria-label={labelText}
             >
               <svg
                 viewBox="0 0 24 24"
@@ -268,7 +275,7 @@ export const Header = React.memo(function Header() {
               </svg>
 
               <span>
-                {user ? 'پنل کاربری' : 'ثبت نام / ورود'}
+                {labelText}
               </span>
             </NavLink>
 

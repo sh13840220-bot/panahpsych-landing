@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'AbarLow', sans-serif;
+}
+
 /* ============ Abar Font Family Definitions ============ */
 @font-face {
   font-family: 'AbarLow';
@@ -91,8 +95,15 @@
        url('https://cdn.jsdelivr.net/gh/fontiran/abar@v1.0/woff/AbarMid-Black.woff') format('woff');
 }
 
+html, body {
+  font-family: 'AbarLow', sans-serif;
+}
+
 /* ============ Design Tokens ============ */
 :root {
+  --navbar-height: 80px;
+  --navbar-top-offset: 16px;
+  --main-content-pt: calc(var(--navbar-height) + var(--navbar-top-offset) + 36px);
   /* Light Mode (Brand Identity Specification) */
   --bg-main: #E2E4DD; /* پس‌زمینه اصلی، چاپ و کاغذ */
   --bg-card: rgba(182, 193, 168, 0.52); /* برای بک‌گراندها، کارت‌ها، فضای تنفس (#B6C1A8) */
@@ -101,7 +112,7 @@
   --color-accent-dark: #20301E;
   --color-accent: #423828; /* جزئیات، خطوط، بافت‌ها */
   --text-primary: #20301E; /* لوگو، عناصر اصلی، تیترها */
-  --text-secondary: #423828; /* جزئیات، خطوط، بافت‌ها */
+  --text-secondary: #2C382A; /* High contrast secondary text in light mode */
   --border-glass: rgba(66, 56, 40, 0.22); /* خطوط، حاشیه‌ها (#423828) */
   --header-bg: rgba(226, 228, 221, 0.78);
   --header-border: rgba(66, 56, 40, 0.2);
@@ -111,28 +122,121 @@
   --toggle-border: rgba(66, 56, 40, 0.25);
   --btn-primary-bg: #20301E;
   --btn-primary-text: #E2E4DD;
+
+  /* Specialty Tag & Colleague Panel Badges (WCAG AA Compliant - Light Mode) */
+  --specialty-tag-bg: #E1E8DC;
+  --specialty-tag-text: #172B1A;
+  --specialty-tag-border: #718B7A;
+
+  --badge-medical-council-bg: #D2E7DD;
+  --badge-medical-council-text: #082B1B;
+  --badge-medical-council-border: #5A8B78;
+
+  --badge-inperson-bg: #D2E7DD;
+  --badge-inperson-text: #082B1B;
+  --badge-inperson-border: #5A8B78;
+
+  --badge-online-bg: #D6E6F5;
+  --badge-online-text: #06283D;
+  --badge-online-border: #598FB5;
+
+  /* Appointment Status Variables (WCAG AA Compliant - Light Mode) */
+  --status-confirmed-bg: #D2E7DD;
+  --status-confirmed-text: #082B1B;
+  --status-confirmed-border: #5A8B78;
+
+  --status-pending-bg: #FDE8D0;
+  --status-pending-text: #4A2000;
+  --status-pending-border: #C88038;
+
+  --status-cancelled-bg: #FCDEDE;
+  --status-cancelled-text: #4C0C0C;
+  --status-cancelled-border: #D86868;
 }
 
 body.dark-mode {
   /* Dark Mode (Brand Identity Specification) */
   --bg-main: #47443E; /* بک گراند (#47443E) */
-  --bg-card: rgba(90, 86, 79, 0.65); /* باکس (#5A564F) */
+  --bg-card: #5A564F; /* باکس (#5A564F) */
   --text-primary: #F8F5EF; /* متن (#F8F5EF) */
   --text-secondary: #D8D2C8; /* زیر متن (#D8D2C8) */
-  --border-glass: rgba(211, 221, 208, 0.22);
+  --border-glass: rgba(182, 148, 114, 0.4); /* دیتیل (#B69472) */
   --color-primary: #A3B69A; /* المان فرعی (#A3B69A) */
   --color-primary-dark: #D3DDD0; /* نقاط روشن و آیکون (#D3DDD0) */
   --color-accent: #B69472; /* دیتیل (#B69472) */
-  --color-accent-dark: #B69472;
-  --header-bg: rgba(71, 68, 62, 0.85);
-  --header-border: rgba(211, 221, 208, 0.2);
-  --menu-bg: rgba(71, 68, 62, 0.96);
-  --divider: rgba(216, 210, 200, 0.18);
-  --icon-bg: rgba(163, 182, 154, 0.22);
-  --toggle-border: rgba(216, 210, 200, 0.25);
+  --color-accent-dark: #B69472; /* دیتیل (#B69472) */
+  --header-bg: rgba(71, 68, 62, 0.95);
+  --header-border: rgba(182, 148, 114, 0.35);
+  --menu-bg: rgba(71, 68, 62, 0.98);
+  --divider: rgba(182, 148, 114, 0.25);
+  --icon-bg: rgba(211, 221, 208, 0.15); /* نقاط روشن و آیکون (#D3DDD0) */
+  --toggle-border: rgba(182, 148, 114, 0.4);
   --btn-primary-bg: #B69472; /* دیتیل (#B69472) */
-  --btn-primary-text: #47443E;
+  --btn-primary-text: #F8F5EF;
   color-scheme: dark;
+
+  /* Specialty Tag & Colleague Panel Badges (WCAG AA Compliant - Dark Mode) */
+  --specialty-tag-bg: rgba(255, 255, 255, 0.12);
+  --specialty-tag-text: #F8F5EF;
+  --specialty-tag-border: rgba(255, 255, 255, 0.25);
+
+  --badge-medical-council-bg: rgba(30, 70, 55, 0.85);
+  --badge-medical-council-text: #DDF5EB;
+  --badge-medical-council-border: #4A8875;
+
+  --badge-inperson-bg: rgba(30, 70, 55, 0.85);
+  --badge-inperson-text: #DDF5EB;
+  --badge-inperson-border: #4A8875;
+
+  --badge-online-bg: rgba(30, 65, 90, 0.85);
+  --badge-online-text: #D8EDFA;
+  --badge-online-border: #4A7A9B;
+
+  /* Appointment Status Variables (WCAG AA Compliant - Dark Mode) */
+  --status-confirmed-bg: rgba(30, 70, 55, 0.95);
+  --status-confirmed-text: #E2F8EE;
+  --status-confirmed-border: #3B7562;
+
+  --status-pending-bg: rgba(80, 50, 15, 0.95);
+  --status-pending-text: #FFF0DC;
+  --status-pending-border: #8A602B;
+
+  --status-cancelled-bg: rgba(80, 25, 25, 0.95);
+  --status-cancelled-text: #FFE4E4;
+  --status-cancelled-border: #9B3B3B;
+}
+
+/* Specific targeted dark mode rules for selected main section */
+body.dark-mode main,
+body.dark-mode div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) {
+  background-color: #47443E;
+  color: #F8F5EF;
+}
+
+body.dark-mode main .glass,
+body.dark-mode div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) .glass {
+  background-color: #5A564F !important;
+  border-color: rgba(182, 148, 114, 0.4) !important;
+  color: #F8F5EF !important;
+}
+
+/* Status Badge Utilities for Appointment States */
+.status-badge-confirmed {
+  background-color: var(--status-confirmed-bg);
+  color: var(--status-confirmed-text);
+  border: 1px solid var(--status-confirmed-border);
+}
+
+.status-badge-pending {
+  background-color: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 1px solid var(--status-pending-border);
+}
+
+.status-badge-cancelled {
+  background-color: var(--status-cancelled-bg);
+  color: var(--status-cancelled-text);
+  border: 1px solid var(--status-cancelled-border);
 }
 
 * {
@@ -185,17 +289,83 @@ a {
   color: inherit;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  width: 100%;
+.container,
+.dashboard-container {
+  max-width: 1200px !important;
+  margin-inline: auto !important;
+  padding-inline: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 768px) {
+  .container,
+  .dashboard-container {
+    padding-inline: 32px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container,
+  .dashboard-container {
+    max-width: 1200px !important;
+    margin-inline: auto !important;
+    padding-inline: 24px !important;
+  }
+}
+
+/* Main content padding wrapper for clearance below fixed navbar & horizontal safe margins */
+.main-content-wrapper,
+.dashboard-main-content {
+  padding-top: var(--main-content-pt, 136px) !important;
+  padding-inline: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 768px) {
+  .main-content-wrapper,
+  .dashboard-main-content {
+    padding-inline: 32px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-content-wrapper,
+  .dashboard-main-content {
+    padding-inline: 24px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-content-wrapper,
+  .dashboard-main-content {
+    padding-top: calc(var(--navbar-height, 72px) + var(--navbar-top-offset, 16px) + 24px) !important;
+  }
+}
+
+/* Appointments & Dashboard Cards Spacing System */
+.appointments-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+.appointment-card-wrapper {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 24px !important;
+}
+
+.appointment-card-wrapper:last-child {
+  margin-bottom: 0 !important;
 }
 
 /* Glass Card System - Japandi Sleek Interface */
 .glass {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -205,6 +375,8 @@ a {
     0 8px 32px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   transition: border-color 300ms ease-out, box-shadow 300ms ease-out;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .glass:hover {
@@ -749,7 +921,8 @@ main.soon-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 130px 24px 80px;
+  padding: 120px 24px 80px;
+  width: 100%;
 }
 
 section {
@@ -784,10 +957,15 @@ section {
 
 /* Coming Soon Card */
 .soon-card {
-  max-width: 620px;
+  max-width: 680px;
   width: 100%;
+  margin: 0 auto;
   text-align: center;
-  padding: 64px 48px;
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .soon-card h1 {
@@ -809,23 +987,35 @@ section {
 
 /* Buttons */
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  padding: 18px 40px;
+  padding: 16px 38px;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   font-family: inherit;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(32, 48, 30, 0.15);
-  transition: opacity 300ms ease-out, background-color 300ms ease-out, color 300ms ease-out, transform 200ms ease-out;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms ease-out,
+              color 300ms ease-out,
+              opacity 300ms ease-out;
 }
 
 .btn-primary:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
+  opacity: 0.96;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(32, 48, 30, 0.22);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 4px 12px rgba(32, 48, 30, 0.15);
 }
 
 body.dark-mode .btn-primary {
@@ -846,7 +1036,7 @@ body.dark-mode .btn-primary {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .card-large h2 {
@@ -863,7 +1053,7 @@ body.dark-mode .btn-primary {
 
 .card-large .btn-primary {
   width: fit-content;
-  margin-top: 12px;
+  margin-top: 2px;
 }
 
 .card-side {
@@ -1156,7 +1346,8 @@ footer.footer-short {
   align-items: center;
   gap: 10px;
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 14.5px;
+  font-weight: 600;
   transition: opacity 300ms ease-out, color 300ms ease-out;
 }
 
@@ -2013,7 +2204,8 @@ body.dark-mode .smart-recommendation-card p {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 420px;
+  width: 100%;
+  max-width: 480px;
   margin: 0 auto 24px;
 }
 
@@ -2094,6 +2286,307 @@ body.dark-mode .auth-msg-success {
 
 .dashboard-card {
   text-align: right;
+}
+
+/* ==========================================
+   USER PANEL & DASHBOARD DAY MODE STYLING
+   Primary palette:
+   - Details, lines, borders: #423828
+   - Backgrounds, cards, breathing space: #b6c1a8
+   - Intermediate elements & surfaces: #7d8b70
+   - Main elements & headlines: #203013
+   ========================================== */
+
+body:not(.dark-mode) .user-dashboard-page,
+body:not(.dark-mode) .dashboard-container {
+  color: #203013;
+}
+
+/* Backgrounds, Cards, and Breathing Space (#b6c1a8) */
+body:not(.dark-mode) .dashboard-card,
+body:not(.dark-mode) .user-panel-box,
+body:not(.dark-mode) .dashboard-container .glass,
+body:not(.dark-mode) .dashboard-container .bg-white,
+body:not(.dark-mode) .dashboard-container .bg-white\/75,
+body:not(.dark-mode) .dashboard-container .bg-white\/80,
+body:not(.dark-mode) .dashboard-container .bg-white\/90,
+body:not(.dark-mode) .dashboard-container .bg-white\/95 {
+  background-color: #b6c1a8 !important;
+  color: #203013 !important;
+  border: 1px solid #423828 !important;
+}
+
+/* Intermediate elements & surfaces (#7d8b70) */
+body:not(.dark-mode) .user-panel-info-box,
+body:not(.dark-mode) .user-panel-results-box,
+body:not(.dark-mode) .dashboard-container .bg-white\/70,
+body:not(.dark-mode) .dashboard-container .bg-amber-100,
+body:not(.dark-mode) .dashboard-container input,
+body:not(.dark-mode) .dashboard-container textarea,
+body:not(.dark-mode) .dashboard-container select,
+body:not(.dark-mode) .user-panel-btn-secondary,
+body:not(.dark-mode) .user-panel-btn-logout {
+  background-color: #7d8b70 !important;
+  color: #203013 !important;
+  border: 1px solid #423828 !important;
+}
+
+/* Main elements, headlines and all text in Day Mode (#203013 / #20301e) */
+body:not(.dark-mode) .user-panel-title,
+body:not(.dark-mode) .user-panel-section-title,
+body:not(.dark-mode) main h1,
+body:not(.dark-mode) main h2,
+body:not(.dark-mode) main h3,
+body:not(.dark-mode) main h4,
+body:not(.dark-mode) main p,
+body:not(.dark-mode) main span,
+body:not(.dark-mode) main label,
+body:not(.dark-mode) main strong,
+body:not(.dark-mode) main b,
+body:not(.dark-mode) main div,
+body:not(.dark-mode) .dashboard-container h1,
+body:not(.dark-mode) .dashboard-container h2,
+body:not(.dark-mode) .dashboard-container h3,
+body:not(.dark-mode) .dashboard-container h4,
+body:not(.dark-mode) .dashboard-container p,
+body:not(.dark-mode) .dashboard-container span,
+body:not(.dark-mode) .dashboard-container label,
+body:not(.dark-mode) .dashboard-container strong,
+body:not(.dark-mode) .dashboard-container b,
+body:not(.dark-mode) .dashboard-container input,
+body:not(.dark-mode) .dashboard-container textarea,
+body:not(.dark-mode) .dashboard-container select,
+body:not(.dark-mode) .dashboard-container .text-[#1C281A],
+body:not(.dark-mode) .dashboard-container .text-[#20301E],
+body:not(.dark-mode) .dashboard-container .text-[#2C382A],
+body:not(.dark-mode) .dashboard-container .text-[#6B6B65],
+body:not(.dark-mode) .dashboard-container .text-[#7FA39C],
+body:not(.dark-mode) .dashboard-container .text-amber-900,
+body:not(.dark-mode) .dashboard-container .text-rose-800,
+body:not(.dark-mode) .dashboard-container .text-[#0E2F23],
+body:not(.dark-mode) .dashboard-container .text-[#0A2B42],
+body:not(.dark-mode) .dashboard-container .text-gray-500,
+body:not(.dark-mode) .dashboard-container .text-gray-600,
+body:not(.dark-mode) .dashboard-container .text-gray-700,
+body:not(.dark-mode) .dashboard-container .text-slate-500,
+body:not(.dark-mode) .dashboard-container .text-slate-600,
+body:not(.dark-mode) .user-panel-subtitle,
+body:not(.dark-mode) .user-panel-info-text,
+body:not(.dark-mode) .user-panel-loading {
+  color: #203013 !important;
+  opacity: 1 !important;
+}
+
+/* Lines, borders, dividers (#423828) */
+body:not(.dark-mode) .user-panel-divider,
+body:not(.dark-mode) .dashboard-container hr,
+body:not(.dark-mode) .dashboard-container .border,
+body:not(.dark-mode) .dashboard-container .border-t,
+body:not(.dark-mode) .dashboard-container .border-b,
+body:not(.dark-mode) .dashboard-container .border-gray-200\/60,
+body:not(.dark-mode) .dashboard-container .border-gray-200\/70,
+body:not(.dark-mode) .dashboard-container .border-gray-300\/80 {
+  border-color: #423828 !important;
+}
+
+/* Primary action buttons in Light Mode User Panel (dark bg with light text) */
+body:not(.dark-mode) .user-panel-btn-primary,
+body:not(.dark-mode) .dashboard-container .bg-[#1C281A],
+body:not(.dark-mode) .dashboard-container .bg-[#1B3B2B],
+body:not(.dark-mode) .dashboard-container button.bg-[#1C281A],
+body:not(.dark-mode) .dashboard-container button.bg-[#1B3B2B] {
+  background-color: #203013 !important;
+  color: #b6c1a8 !important;
+  border: 1px solid #423828 !important;
+}
+
+body:not(.dark-mode) .user-panel-btn-primary *,
+body:not(.dark-mode) .dashboard-container .bg-[#1C281A] *,
+body:not(.dark-mode) .dashboard-container .bg-[#1B3B2B] * {
+  color: #b6c1a8 !important;
+}
+
+/* Placeholders & Icons in Light Mode Panel */
+body:not(.dark-mode) .dashboard-container input::placeholder,
+body:not(.dark-mode) .dashboard-container textarea::placeholder {
+  color: #423828 !important;
+  opacity: 0.85;
+}
+
+body:not(.dark-mode) .dashboard-container svg {
+  color: #203013 !important;
+}
+
+/* ==========================================
+   COLLEAGUE PANEL BADGES & STATUSES (WCAG AA)
+   Using local CSS variables for high contrast readability
+   ========================================== */
+.status-badge-confirmed,
+body:not(.dark-mode) .status-badge-confirmed,
+body.dark-mode .status-badge-confirmed {
+  background-color: var(--status-confirmed-bg) !important;
+  color: var(--status-confirmed-text) !important;
+  border: 1px solid var(--status-confirmed-border) !important;
+}
+.status-badge-confirmed svg {
+  color: var(--status-confirmed-text) !important;
+}
+
+.status-badge-pending,
+body:not(.dark-mode) .status-badge-pending,
+body.dark-mode .status-badge-pending {
+  background-color: var(--status-pending-bg) !important;
+  color: var(--status-pending-text) !important;
+  border: 1px solid var(--status-pending-border) !important;
+}
+.status-badge-pending svg {
+  color: var(--status-pending-text) !important;
+}
+
+.status-badge-cancelled,
+body:not(.dark-mode) .status-badge-cancelled,
+body.dark-mode .status-badge-cancelled {
+  background-color: var(--status-cancelled-bg) !important;
+  color: var(--status-cancelled-text) !important;
+  border: 1px solid var(--status-cancelled-border) !important;
+}
+.status-badge-cancelled svg {
+  color: var(--status-cancelled-text) !important;
+}
+
+.specialty-tag-badge,
+body:not(.dark-mode) .specialty-tag-badge,
+body.dark-mode .specialty-tag-badge {
+  background-color: var(--specialty-tag-bg) !important;
+  color: var(--specialty-tag-text) !important;
+  border: 1px solid var(--specialty-tag-border) !important;
+}
+
+.badge-medical-council,
+body:not(.dark-mode) .badge-medical-council,
+body.dark-mode .badge-medical-council {
+  background-color: var(--badge-medical-council-bg) !important;
+  color: var(--badge-medical-council-text) !important;
+  border: 1px solid var(--badge-medical-council-border) !important;
+}
+
+.badge-format-inperson,
+body:not(.dark-mode) .badge-format-inperson,
+body.dark-mode .badge-format-inperson {
+  background-color: var(--badge-inperson-bg) !important;
+  color: var(--badge-inperson-text) !important;
+  border: 1px solid var(--badge-inperson-border) !important;
+}
+.badge-format-inperson svg {
+  color: var(--badge-inperson-text) !important;
+}
+
+.badge-format-online,
+body:not(.dark-mode) .badge-format-online,
+body.dark-mode .badge-format-online {
+  background-color: var(--badge-online-bg) !important;
+  color: var(--badge-online-text) !important;
+  border: 1px solid var(--badge-online-border) !important;
+}
+.badge-format-online svg {
+  color: var(--badge-online-text) !important;
+}
+
+/* Specific rules for selected elements in focus mode */
+div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1) > strong:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) {
+  color: #20301e !important;
+}
+
+/* User Dashboard Specific Typography & Layout */
+.user-panel-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.user-panel-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.user-panel-info-box {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: 16px;
+}
+
+.user-panel-info-text {
+  margin: 0;
+  font-size: 15px;
+}
+
+.user-panel-loading {
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+.user-panel-divider {
+  margin: 28px 0;
+  border: none;
+  border-top-width: 1px;
+}
+
+.user-panel-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.user-panel-results-box {
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.user-panel-results-count {
+  margin: 0 0 16px;
+  font-size: 15px;
+}
+
+.user-panel-btn-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user-panel-btn-primary,
+.user-panel-btn-secondary,
+.user-panel-btn-logout {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.user-panel-btn-primary:hover,
+.user-panel-btn-secondary:hover,
+.user-panel-btn-logout:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.user-panel-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
 }
 
 .dashboard-result-item {

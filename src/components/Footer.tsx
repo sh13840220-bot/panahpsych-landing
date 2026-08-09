@@ -22,8 +22,8 @@ export function Footer({ showCollabNote = false, isShort = false }: FooterProps)
       <footer className={isShort ? 'footer-short' : ''}>
         <div className="container footer-inner">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxWidth: '420px' }}>
-            <span className="footer-text" style={{ fontWeight: 700 }}>پناه © ۱۴۰۴</span>
-            <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+            <span className="footer-text" style={{ fontWeight: 800, fontSize: '16px' }}>پناه © ۱۴۰۴</span>
+            <p style={{ margin: 0, fontSize: '13.5px', color: 'var(--text-primary)', fontWeight: 500, lineHeight: '1.7', opacity: 0.9 }}>
               <span>تمامی حقوق مادی و معنوی این وب‌سایت متعلق به پناه است.</span>
               <br />
               <span>کپی یا بازنشر بخش یا کل مطالب تنها با کسب مجوز مکتوب امکان‌پذیر است.</span>

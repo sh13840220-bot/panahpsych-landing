@@ -1,31 +1,31 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import React, { useEffect } from 'react';
 
 export default function PsychologistDashboard() {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/ravanshenas/login', { replace: true });
-  };
+  useEffect(() => {
+    window.location.replace('https://app.panahpsych.ir');
+  }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-gray-50 p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold">پنل روانشناس</h1>
-        <button
-          onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '60vh',
+      direction: 'rtl',
+      fontFamily: 'Vazirmatn, sans-serif',
+      color: 'var(--text-primary)'
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <p style={{ fontSize: '18px', fontWeight: 600, marginBottom: '12px' }}>
+          پنل همکاران به سامانه اختصاصی منتقل شده است. در حال انتقال...
+        </p>
+        <a
+          href="https://app.panahpsych.ir"
+          style={{ color: 'var(--color-primary-dark)', textDecoration: 'underline', fontSize: '14px' }}
         >
-          خروج
-        </button>
+          ورود به سامانه همکاران (app.panahpsych.ir)
+        </a>
       </div>
-
-      <p className="text-gray-600">
-        خوش آمدید. این صفحه فعلاً یک نمونه‌ی اولیه است — می‌توانیم بعداً
-        محتوای واقعی پنل (بیماران، جلسات و...) را اینجا اضافه کنیم.
-      </p>
     </div>
   );
 }

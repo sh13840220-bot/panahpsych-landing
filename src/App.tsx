@@ -29,7 +29,6 @@ export default function App() {
     } catch {
       // ignore
     }
-    document.body.style.fontFamily = "'Vazirmatn', Tahoma, sans-serif";
   }, []);
 
   return (
