@@ -2234,6 +2234,16 @@ body.dark-mode .auth-input {
   box-shadow: 0 0 0 3px rgba(168, 197, 192, 0.3);
 }
 
+.auth-form .btn-primary {
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
 .auth-text-btn {
   background: none;
   border: none;
