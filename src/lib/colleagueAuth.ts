@@ -81,6 +81,11 @@ export function getCurrentColleagueSession(): ColleagueProfile | null {
 
 export function loginColleague(username: string, password?: string): ColleagueProfile | null {
   const cleanUsername = username.trim().toLowerCase();
+
+  if (cleanUsername === 'dr_tehrani' || cleanUsername === 'dr_alavi') {
+    throw new Error('حساب کاربری نمونه غیرفعال شده است.');
+  }
+
   const profiles = getStoredProfiles();
 
   // If match found in default profiles

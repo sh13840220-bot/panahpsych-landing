@@ -19,7 +19,7 @@ export function TestsSoonPage() {
           </Reveal>
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer isShort={true} />
     </>
   );
 }

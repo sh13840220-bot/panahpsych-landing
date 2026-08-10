@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { User, Unlock, Briefcase, UserPlus } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import { loginColleague } from '../lib/colleagueAuth';
 import { Reveal } from '../components/Reveal';
 import { Footer } from '../components/Footer';
 
-type AuthMode = 'login' | 'signup' | 'forgot' | 'colleague';
+type AuthMode = 'select' | 'login' | 'signup' | 'forgot' | 'colleague';
 
 export function AuthSoonPage() {
   const navigate = useNavigate();
@@ -16,7 +17,14 @@ export function AuthSoonPage() {
 
   const redirectTarget = (location.state as { from?: string })?.from || searchParams.get('redirect') || '/';
 
-  const [mode, setMode] = useState<AuthMode>('login');
+  const initialModeParam = searchParams.get('mode');
+  const [mode, setMode] = useState<AuthMode>(() => {
+    if (initialModeParam === 'signup') return 'signup';
+    if (initialModeParam === 'login') return 'login';
+    if (initialModeParam === 'colleague') return 'colleague';
+    if (initialModeParam === 'forgot') return 'forgot';
+    return 'select';
+  });
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -221,39 +229,46 @@ export function AuthSoonPage() {
           }}
         >
           <Reveal className="soon-card glass" style={{ maxWidth: '680px', width: '100%', margin: '0 auto' }}>
-            {/* Top Auth Mode Tabs */}
-            <div className="flex bg-white/50 p-1 rounded-full border border-gray-200/50 mb-6 max-w-sm mx-auto shadow-xs">
-              <button
-                type="button"
-                onClick={() => changeMode('login')}
-                className={`flex-1 py-2 px-3 text-xs md:text-sm font-semibold rounded-full transition-all ${
-                  mode === 'login' || mode === 'signup' || mode === 'forgot'
-                    ? 'bg-[var(--color-primary)] text-white shadow-xs'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                ورود مراجعین
-              </button>
-              <button
-                type="button"
-                onClick={() => changeMode('colleague')}
-                className={`flex-1 py-2 px-3 text-xs md:text-sm font-semibold rounded-full transition-all ${
-                  mode === 'colleague'
-                    ? 'bg-[var(--color-primary)] text-white shadow-xs'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                ورود همکاران
-              </button>
-            </div>
+            {mode === 'select' ? (
+              <div className="py-4 text-center max-w-sm mx-auto">
+                <h1 className="text-xl sm:text-2xl font-bold mb-6 text-[var(--text-primary)]">
+                  ورود / ثبت‌نام
+                </h1>
+
+                <div className="flex flex-col gap-3.5 w-full">
+                  <button
+                    type="button"
+                    onClick={() => changeMode('signup')}
+                    className="w-full py-3.5 px-6 rounded-full bg-[var(--color-primary)] text-white font-bold text-base hover:bg-[var(--color-primary-dark)] transition-all shadow-sm hover:shadow cursor-pointer flex items-center justify-center gap-2.5"
+                  >
+                    <UserPlus className="w-5 h-5 shrink-0" />
+                    <span>ثبت‌نام</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => changeMode('login')}
+                    className="w-full py-3.5 px-6 rounded-full bg-white/80 hover:bg-white text-[var(--text-primary)] font-bold text-base border border-gray-200/80 transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
+                  >
+                    <Unlock className="w-5 h-5 shrink-0 text-[var(--color-primary-dark)]" />
+                    <span>ورود</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => changeMode('colleague')}
+                    className="w-full py-3.5 px-6 rounded-full bg-white/80 hover:bg-white text-[var(--text-primary)] font-bold text-base border border-gray-200/80 transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
+                  >
+                    <Briefcase className="w-5 h-5 shrink-0 text-[var(--color-primary-dark)]" />
+                    <span>ورود همکاران</span>
+                  </button>
+                </div>
+              </div>
+            ) : null}
 
             {mode === 'login' && (
               <>
                 <h1>ورود به حساب مراجعین</h1>
-
-                <p>
-                  برای ورود به حساب کاربری پناه، اطلاعات خود را وارد کنید.
-                </p>
 
                 <form onSubmit={handleLogin} className="auth-form">
                   <input
@@ -302,17 +317,6 @@ export function AuthSoonPage() {
                   >
                     رمز عبورم را فراموش کرده‌ام
                   </button>
-
-                  <p style={{ margin: 0, fontSize: '14px' }}>
-                    حساب کاربری ندارید؟{' '}
-                    <button
-                      type="button"
-                      className="auth-text-btn"
-                      onClick={() => changeMode('signup')}
-                    >
-                      ثبت‌نام کنید
-                    </button>
-                  </p>
                 </div>
               </>
             )}
@@ -320,10 +324,6 @@ export function AuthSoonPage() {
             {mode === 'colleague' && (
               <>
                 <h1>ورود همکاران و روانشناسان</h1>
-
-                <p>
-                  ورود به پنل کاربری ویژه مشاوران و روانشناسان همکار پناه با یوزرنیم و رمز عبور.
-                </p>
 
                 <form onSubmit={handleColleagueLogin} className="auth-form">
                   <input
@@ -363,44 +363,12 @@ export function AuthSoonPage() {
                     {loading ? 'در حال بررسی...' : 'ورود و انتقال به سامانه همکاران'}
                   </button>
                 </form>
-
-                <div className="bg-white/60 dark:bg-white/10 p-3.5 rounded-2xl border border-gray-200/50 dark:border-white/10 my-4 text-center">
-                  <p className="text-xs text-[var(--text-secondary)] mb-2 font-medium">
-                    ورود سریع با حساب نمونه:
-                  </p>
-                  <div className="flex gap-2 justify-center flex-wrap">
-                    <button
-                      type="button"
-                      className="text-xs text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-teal-900/40 hover:bg-teal-100 px-3 py-1.5 rounded-full border border-teal-200 dark:border-teal-700 transition-all font-medium"
-                      onClick={() => {
-                        setColleagueUsername('dr_tehrani');
-                        setPassword('123456');
-                      }}
-                    >
-                      دکتر مریم تهرانی
-                    </button>
-                    <button
-                      type="button"
-                      className="text-xs text-slate-900 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 transition-all font-medium"
-                      onClick={() => {
-                        setColleagueUsername('dr_alavi');
-                        setPassword('123456');
-                      }}
-                    >
-                      دکتر علی علوی
-                    </button>
-                  </div>
-                </div>
               </>
             )}
 
             {mode === 'signup' && (
               <>
                 <h1>ایجاد حساب</h1>
-
-                <p>
-                  برای ساخت حساب کاربری در پناه، اطلاعات زیر را وارد کنید.
-                </p>
 
                 <form onSubmit={handleSignUp} className="auth-form">
                   <input
@@ -462,30 +430,12 @@ export function AuthSoonPage() {
                     {loading ? 'در حال ساخت حساب...' : 'ثبت‌نام'}
                   </button>
                 </form>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <p style={{ margin: 0, fontSize: '14px' }}>
-                    قبلاً حساب ساخته‌اید؟{' '}
-                    <button
-                      type="button"
-                      className="auth-text-btn"
-                      onClick={() => changeMode('login')}
-                    >
-                      وارد شوید
-                    </button>
-                  </p>
-                </div>
               </>
             )}
 
             {mode === 'forgot' && (
               <>
                 <h1>بازیابی رمز عبور</h1>
-
-                <p>
-                  ایمیل حساب خود را وارد کنید تا لینک بازیابی رمز برایتان
-                  ارسال شود.
-                </p>
 
                 <form onSubmit={handleForgotPassword} className="auth-form">
                   <input
@@ -530,9 +480,21 @@ export function AuthSoonPage() {
               </>
             )}
 
-            <Link to="/" className="btn-primary">
-              بازگشت به صفحه اصلی
-            </Link>
+            <div className="mt-6 pt-2 text-center flex justify-center">
+              <Link
+                to="/"
+                className="btn-primary"
+                style={{
+                  width: '197px',
+                  height: '33px',
+                  padding: '0 16px',
+                  fontSize: '14px',
+                  marginTop: '15px',
+                }}
+              >
+                بازگشت به صفحه اصلی
+              </Link>
+            </div>
           </Reveal>
         </div>
       </main>

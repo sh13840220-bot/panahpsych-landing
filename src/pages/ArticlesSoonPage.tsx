@@ -19,7 +19,7 @@ export function ArticlesSoonPage() {
           </Reveal>
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer isShort={true} />
     </>
   );
 }

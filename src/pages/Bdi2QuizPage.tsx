@@ -459,7 +459,7 @@ export function Bdi2QuizPage() {
                 <p>می‌توانید نتیجه‌ی این غربالگری را با یکی از روان‌شناسان پناه در میان بگذارید.</p>
                 <button
                   className="btn-primary-pill light-btn"
-                  onClick={() => navigate('/clients-soon')}
+                  onClick={() => navigate('/assessments')}
                 >
                   رزرو مشاوره
                 </button>
@@ -478,7 +478,7 @@ export function Bdi2QuizPage() {
 
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer isShort={true} />
     </>
   );
 }

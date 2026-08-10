@@ -124,7 +124,7 @@ export function PsychologyTestsPage() {
           ))}
         </div>
       </main>
-      <Footer showCollabNote={true} isShort={true} />
+      <Footer isShort={true} />
     </>
   );
 }

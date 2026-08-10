@@ -6,7 +6,6 @@ import { ScrollProgress } from './components/ScrollProgress';
 import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { CollaborationPage } from './pages/CollaborationPage';
-import { ClientsSoonPage } from './pages/ClientsSoonPage';
 import { PsychologyTestsPage } from './pages/PsychologyTestsPage';
 import { Dass21QuizPage } from './pages/Dass21QuizPage';
 import { Gad7QuizPage } from './pages/Gad7QuizPage';
@@ -38,7 +37,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/collaboration" element={<CollaborationPage />} />
-        <Route path="/clients-soon" element={<ClientsSoonPage />} />
         <Route path="/tests-soon" element={<PsychologyTestsPage />} />
         <Route path="/assessments" element={<PsychologyTestsPage />} />
         <Route path="/assessments/gad-7" element={<Gad7QuizPage />} />

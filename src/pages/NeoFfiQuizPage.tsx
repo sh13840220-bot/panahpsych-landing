@@ -335,7 +335,7 @@ export function NeoFfiQuizPage() {
                 <p>می‌توانید این پروفایل را به‌عنوان نقطه‌ی شروع گفت‌وگو با روان‌شناس در نظر بگیرید.</p>
                 <button
                   className="btn-primary-pill light-btn"
-                  onClick={() => navigate('/clients-soon')}
+                  onClick={() => navigate('/assessments')}
                 >
                   رزرو مشاوره
                 </button>

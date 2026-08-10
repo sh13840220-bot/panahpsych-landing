@@ -256,7 +256,7 @@ export function Gad7QuizPage() {
                 <p>می‌توانید نتیجه‌ی این آزمون را با یکی از روان‌شناسان پناه در میان بگذارید.</p>
                 <button
                   className="btn-primary-pill light-btn"
-                  onClick={() => navigate('/clients-soon')}
+                  onClick={() => navigate('/assessments')}
                 >
                   رزرو مشاوره
                 </button>

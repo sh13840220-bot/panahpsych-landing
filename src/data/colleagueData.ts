@@ -53,46 +53,7 @@ export interface UpcomingAppointment {
   notes?: string;
 }
 
-export const DEFAULT_COLLEAGUES: Record<string, ColleagueProfile> = {
-  dr_tehrani: {
-    id: 'psych-001',
-    username: 'dr_tehrani',
-    fullName: 'دکتر مریم تهرانی',
-    title: 'متخصص روان‌شناسی بالینی و طرح‌واره درمانی',
-    age: 38,
-    avatarUrl: 'https://images.unsplash.com/photo-1594824813566-818a4d4554b2?auto=format&fit=crop&q=80&w=400',
-    degree: 'دکتری تخصصی روان‌شناسی بالینی',
-    university: 'دانشگاه تهران',
-    medicalCouncilNumber: 'ن-۴۵۸۹۲',
-    yearsOfExperience: 12,
-    rating: 4.9,
-    reviewCount: 142,
-    specialties: ['درمان اضطراب و افسردگی', 'طرح‌واره درمانی', 'مشاوره فردی', 'مدیریت استرس'],
-    bio: 'عضو هیئت علمی دانشگاه و درمانگر ارشد با بیش از ۱۲ سال سابقه بالینی در حوزه درمان‌های شناختی-رفتاری (CBT) و طرح‌واره درمانی. دارنده گواهینامه‌های بین‌المللی روان‌درمانی.',
-    officeAddress: 'تهران، خیابان ولیعصر، بالاتر از پارک وی، ساختمان پزشکان پناه، طبقه ۴',
-    phone: '021-88992211',
-    email: 'dr.tehrani@panah.psych',
-  },
-  dr_alavi: {
-    id: 'psych-002',
-    username: 'dr_alavi',
-    fullName: 'دکتر علی علوی',
-    title: 'متخصص روان‌پزشکی و زوج‌درمانی',
-    age: 44,
-    avatarUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400',
-    degree: 'تخصص روان‌پزشکی (بورد تخصصی)',
-    university: 'دانشگاه علوم پزشکی شهید بهشتی',
-    medicalCouncilNumber: 'ن-۳۸۴۰۱',
-    yearsOfExperience: 15,
-    rating: 4.8,
-    reviewCount: 98,
-    specialties: ['زوج درمانی', 'مشاوره پیش از ازدواج', 'دارودرمانی روان‌پزشکی', 'اختلالات خلق و خو'],
-    bio: 'روان‌پزشک و زوج‌درمانگر با ۱۵ سال سابقه فعالیت در کلینیک‌های تخصصی. متخصص در حل تعارضات زناشویی، مشاوره تخصصی خانواده و درمان اختلالات با رویکرد تلفیقی.',
-    officeAddress: 'تهران، میدان ونک، خیابان ملاصدرا، پلاک ۶۴، واحد ۲',
-    phone: '021-88771122',
-    email: 'dr.alavi@panah.psych',
-  },
-};
+export const DEFAULT_COLLEAGUES: Record<string, ColleagueProfile> = {};
 
 export const INITIAL_REVIEWS: Record<string, ReviewItem[]> = {
   dr_tehrani: [

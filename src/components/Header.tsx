@@ -72,10 +72,6 @@ export const MobileMenu = React.memo(function MobileMenu({
           همکاری
         </NavLink>
 
-        <NavLink to="/clients-soon" onClick={onClose}>
-          مراجعه‌کنندگان
-        </NavLink>
-
         <NavLink to="/assessments" onClick={onClose}>
           آزمون‌های روانشناسی
         </NavLink>
@@ -141,8 +137,6 @@ export const Header = React.memo(function Header() {
           <div className="nav-group">
             {/* Desktop Nav Links */}
             <div className="nav-links">
-              <NavLink to="/clients-soon">مراجعه‌کنندگان</NavLink>
-
               <div
                 className="nav-dropdown-wrapper"
                 onMouseEnter={() => setIsTestsDropdownOpen(true)}
