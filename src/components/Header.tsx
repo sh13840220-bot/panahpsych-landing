@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
+import { NavSearch } from './NavSearch';
 
 import panahLogoLight from '../assets/images/panah_logo_light.webp';
 import panahLogoDark from '../assets/images/panah_logo_dark.webp';
@@ -137,6 +138,8 @@ export const Header = React.memo(function Header() {
           <div className="nav-group">
             {/* Desktop Nav Links */}
             <div className="nav-links">
+              <NavLink to="/collaboration">همکاری با ما</NavLink>
+
               <div
                 className="nav-dropdown-wrapper"
                 onMouseEnter={() => setIsTestsDropdownOpen(true)}
@@ -211,6 +214,9 @@ export const Header = React.memo(function Header() {
 
               <NavLink to="/articles-soon">مقالات</NavLink>
             </div>
+
+            {/* Search Input Trigger */}
+            <NavSearch />
 
             {/* Theme Toggle Button */}
             <button

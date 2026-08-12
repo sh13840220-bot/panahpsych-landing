@@ -248,18 +248,20 @@ export function AuthSoonPage() {
                   <button
                     type="button"
                     onClick={() => changeMode('login')}
-                    className="w-full py-3.5 px-6 rounded-full bg-white/80 hover:bg-white text-[var(--text-primary)] font-bold text-base border border-gray-200/80 transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
+                    style={{ backgroundColor: '#a3b69a' }}
+                    className="w-full py-3.5 px-6 rounded-full text-white font-bold text-base border border-transparent transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
                   >
-                    <Unlock className="w-5 h-5 shrink-0 text-[var(--color-primary-dark)]" />
+                    <Unlock className="w-5 h-5 shrink-0 text-white" />
                     <span>ورود</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => changeMode('colleague')}
-                    className="w-full py-3.5 px-6 rounded-full bg-white/80 hover:bg-white text-[var(--text-primary)] font-bold text-base border border-gray-200/80 transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
+                    style={{ backgroundColor: '#a3b69a' }}
+                    className="w-full py-3.5 px-6 rounded-full text-white font-bold text-base border border-transparent transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
                   >
-                    <Briefcase className="w-5 h-5 shrink-0 text-[var(--color-primary-dark)]" />
+                    <Briefcase className="w-5 h-5 shrink-0 text-white" />
                     <span>ورود همکاران</span>
                   </button>
                 </div>
