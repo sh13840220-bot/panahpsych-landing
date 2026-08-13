@@ -28,7 +28,8 @@ export function AuthSoonPage() {
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [colleagueUsername, setColleagueUsername] = useState('');
+  const [colleagueEmail, setColleagueEmail] = useState('');
+  const [colleaguePassword, setColleaguePassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -60,21 +61,30 @@ export function AuthSoonPage() {
     e.preventDefault();
     resetMessages();
 
-    if (!colleagueUsername.trim() || !password) {
-      setError('لطفاً یوزرنیم و رمز عبور را وارد کنید.');
+    if (!colleagueEmail.trim() || !colleaguePassword) {
+      setError('ایمیل یا رمز عبور اشتباه است.');
       return;
     }
 
     setLoading(true);
 
     try {
-      loginColleague(colleagueUsername, password);
-      setMessage('ورود با موفقیت انجام شد. در حال انتقال به سامانه همکاران...');
-      setTimeout(() => {
-        window.location.href = 'https://app.panahpsych.ir';
-      }, 700);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: colleagueEmail.trim(),
+        password: colleaguePassword,
+      });
+
+      if (error) {
+        setError('ایمیل یا رمز عبور اشتباه است.');
+      } else if (data?.session) {
+        const access_token = data.session.access_token;
+        const refresh_token = data.session.refresh_token;
+        window.location.href = `https://app.panahpsych.ir/#access_token=${access_token}&refresh_token=${refresh_token}&type=recovery`;
+      } else {
+        setError('ایمیل یا رمز عبور اشتباه است.');
+      }
     } catch (err: any) {
-      setError('خطا در ورود به حساب همکار.');
+      setError('ایمیل یا رمز عبور اشتباه است.');
     } finally {
       setLoading(false);
     }
@@ -324,48 +334,55 @@ export function AuthSoonPage() {
             )}
 
             {mode === 'colleague' && (
-              <>
-                <h1>ورود همکاران و روانشناسان</h1>
+              <div id="login-box">
+                <h3 className="text-xl font-bold mb-4 text-[var(--text-primary)] text-center">ورود همکاران</h3>
 
-                <form onSubmit={handleColleagueLogin} className="auth-form">
+                <form id="psychologistLoginForm" onSubmit={handleColleagueLogin} className="auth-form">
                   <input
-                    type="text"
+                    type="email"
+                    id="loginEmail"
                     className="auth-input"
-                    placeholder="یوزرنیم (نام کاربری همکار)"
-                    value={colleagueUsername}
-                    onChange={(e) => setColleagueUsername(e.target.value)}
-                    autoComplete="username"
+                    placeholder="ایمیل (نام کاربری)"
+                    value={colleagueEmail}
+                    onChange={(e) => setColleagueEmail(e.target.value)}
                     required
                   />
 
                   <input
                     type="password"
+                    id="loginPassword"
                     className="auth-input"
                     placeholder="رمز عبور"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="current-password"
+                    value={colleaguePassword}
+                    onChange={(e) => setColleaguePassword(e.target.value)}
                     required
                   />
 
-                  {error && (
-                    <div className="auth-msg-error">{error}</div>
-                  )}
-
-                  {message && (
-                    <div className="auth-msg-success">{message}</div>
-                  )}
-
                   <button
                     type="submit"
+                    id="loginBtn"
                     className="btn-primary"
                     disabled={loading}
-                    style={{ width: '100%', marginTop: '8px' }}
+                    style={{ width: '100%', marginTop: '12px' }}
                   >
-                    {loading ? 'در حال بررسی...' : 'ورود و انتقال به سامانه همکاران'}
+                    {loading ? 'در حال بررسی...' : 'ورود به پنل'}
                   </button>
                 </form>
-              </>
+
+                <p id="loginMessage" style={{ color: 'red', marginTop: '10px', textAlign: 'center' }}>
+                  {error}
+                </p>
+
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    className="auth-text-btn"
+                    onClick={() => changeMode('select')}
+                  >
+                    بازگشت به انتخاب نوع ورود
+                  </button>
+                </div>
+              </div>
             )}
 
             {mode === 'signup' && (
