@@ -337,7 +337,7 @@ export function Bdi2QuizPage() {
                 ⚠️ این آزمون یک ابزار <strong>غربالگری</strong> است، نه روش تشخیص. نتیجه‌ی آن جایگزین ارزیابی و تشخیص روان‌شناس یا روان‌پزشک نیست.
               </div>
               {!user && (
-                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'var(--icon-bg)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
                   🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
                 </div>
               )}
@@ -423,10 +423,10 @@ export function Bdi2QuizPage() {
               {/* Visible only in print mode */}
               <div className="print-header-brand">
                 <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#20301E' }}>پناه | گزارش ارزیابی روان‌شناختی</h2>
-                  <p style={{ fontSize: '13px', color: '#423828' }}>آزمون افسردگی بک (BDI-II)</p>
+                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>پناه | گزارش ارزیابی روان‌شناختی</h2>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>آزمون افسردگی بک (BDI-II)</p>
                 </div>
-                <div style={{ fontSize: '12px', color: '#6B6B65', textAlign: 'left' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', textAlign: 'left' }}>
                   تاریخ: {new Date().toLocaleDateString('fa-IR')}
                 </div>
               </div>

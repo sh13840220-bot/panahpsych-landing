@@ -258,7 +258,7 @@ export function AuthSoonPage() {
                   <button
                     type="button"
                     onClick={() => changeMode('login')}
-                    style={{ backgroundColor: '#a3b69a' }}
+                    style={{ backgroundColor: 'var(--color-primary-dark)' }}
                     className="w-full py-3.5 px-6 rounded-full text-white font-bold text-base border border-transparent transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
                   >
                     <Unlock className="w-5 h-5 shrink-0 text-white" />
@@ -268,7 +268,7 @@ export function AuthSoonPage() {
                   <button
                     type="button"
                     onClick={() => changeMode('colleague')}
-                    style={{ backgroundColor: '#a3b69a' }}
+                    style={{ backgroundColor: 'var(--color-primary-dark)' }}
                     className="w-full py-3.5 px-6 rounded-full text-white font-bold text-base border border-transparent transition-all shadow-xs hover:shadow-sm cursor-pointer flex items-center justify-center gap-2.5"
                   >
                     <Briefcase className="w-5 h-5 shrink-0 text-white" />
@@ -369,7 +369,7 @@ export function AuthSoonPage() {
                   </button>
                 </form>
 
-                <p id="loginMessage" style={{ color: 'red', marginTop: '10px', textAlign: 'center' }}>
+                <p id="loginMessage" style={{ color: 'var(--status-cancelled-text)', marginTop: '10px', textAlign: 'center' }}>
                   {error}
                 </p>
 

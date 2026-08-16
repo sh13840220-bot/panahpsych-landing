@@ -13,6 +13,11 @@ import { RosenbergQuizPage } from './pages/RosenbergQuizPage';
 import { Bdi2QuizPage } from './pages/Bdi2QuizPage';
 import { MbtiQuizPage } from './pages/MbtiQuizPage';
 import { NeoFfiQuizPage } from './pages/NeoFfiQuizPage';
+import { CfiQuizPage } from './pages/CfiQuizPage';
+import { BarOnQuizPage } from './pages/BarOnQuizPage';
+import { BaiQuizPage } from './pages/BaiQuizPage';
+import { Scl90QuizPage } from './pages/Scl90QuizPage';
+import { NeoQuizPage } from './pages/NeoQuizPage';
 import { ArticlesSoonPage } from './pages/ArticlesSoonPage';
 import { AuthSoonPage } from './pages/AuthSoonPage';
 import { AssessmentResultsPage } from './pages/AssessmentResultsPage';
@@ -44,6 +49,17 @@ export default function App() {
         <Route path="/assessments/bdi-ii" element={<Bdi2QuizPage />} />
         <Route path="/assessments/mbti" element={<MbtiQuizPage />} />
         <Route path="/assessments/neo-ffi" element={<NeoFfiQuizPage />} />
+        <Route path="/assessments/neo" element={<NeoQuizPage />} />
+        <Route path="/assessments/neo-240" element={<NeoQuizPage />} />
+        <Route path="/assessments/neo-pir" element={<NeoQuizPage />} />
+        <Route path="/assessments/cfi" element={<CfiQuizPage />} />
+        <Route path="/assessments/bar-on" element={<BarOnQuizPage />} />
+        <Route path="/assessments/baron" element={<BarOnQuizPage />} />
+        <Route path="/assessments/bai" element={<BaiQuizPage />} />
+        <Route path="/assessments/beck-anxiety" element={<BaiQuizPage />} />
+        <Route path="/assessments/scl-90" element={<Scl90QuizPage />} />
+        <Route path="/assessments/scl90" element={<Scl90QuizPage />} />
+        <Route path="/assessments/scl-90-r" element={<Scl90QuizPage />} />
         <Route path="/assessments/dass-21" element={<Dass21QuizPage />} />
         <Route path="/articles-soon" element={<ArticlesSoonPage />} />
         <Route path="/auth-soon" element={<AuthSoonPage />} />

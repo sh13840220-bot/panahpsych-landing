@@ -65,6 +65,56 @@ const ASSESSMENTS: AssessmentItem[] = [
     link: '/assessments/bdi-ii',
   },
   {
+    id: 'beck-anxiety',
+    title: 'پرسشنامه اضطراب بک (BAI)',
+    description:
+      'ارزیابی تخصصی شدت علائم اضطراب در ۳ بعد علائم بدنی، ذهنی و هراس در طول یک هفته گذشته.',
+    time: '۵–۸ دقیقه',
+    questions: '۲۱ سؤال',
+    status: 'active',
+    link: '/assessments/bai',
+  },
+  {
+    id: 'scl-90',
+    title: 'پرسشنامه نشانه‌های روانی (SCL-90-R)',
+    description:
+      'غربالگری و ارزیابی جامع نشانه‌های روان‌شناختی در ۹ بعد بالینی و ۳ شاخص کلان آسیب‌شناسی روانی (GSI, PST, PSDI).',
+    time: '۱۵–۲۰ دقیقه',
+    questions: '۹۰ سؤال',
+    status: 'active',
+    link: '/assessments/scl-90',
+  },
+  {
+    id: 'cfi',
+    title: 'آزمون انعطاف‌پذیری شناختی (CFI)',
+    description:
+      'سنجش توانایی چالش و جایگزینی افکار ناکارآمد با نگرش‌های سازنده، ادراک کنترل‌پذیری و خلق گزینه‌های چندگانه.',
+    time: '۵–۱۰ دقیقه',
+    questions: '۲۰ سؤال',
+    status: 'active',
+    link: '/assessments/cfi',
+  },
+  {
+    id: 'bar-on',
+    title: 'پرسشنامه هوش هیجانی بار-آن (Bar-On EQ-i)',
+    description:
+      'سنجش جامع ۱۵ مهارت هوش هیجانی و اجتماعی در ۵ حیطه درون‌فردی، بین‌فردی، سازگاری، مدیریت استرس و خلق عمومی.',
+    time: '۱۵–۲۵ دقیقه',
+    questions: '۹۰ سؤال',
+    status: 'active',
+    link: '/assessments/bar-on',
+  },
+  {
+    id: 'neo-240',
+    title: 'آزمون NEO',
+    description:
+      'پرسشنامه جامع ۲۴۰ سؤالی ارزیابی شخصیت (NEO PI-R) برای سنجش دقیق ۵ عامل اصلی و ۳۰ ویژگی و خرده‌مقیاس تخصصی شخصیتی.',
+    time: '۳۰–۴۵ دقیقه',
+    questions: '۲۴۰ سؤال',
+    status: 'active',
+    link: '/assessments/neo',
+  },
+  {
     id: 'neo-mff',
     title: 'آزمون ۵ عامل بزرگ شخصیت (NEO-FFI)',
     description:

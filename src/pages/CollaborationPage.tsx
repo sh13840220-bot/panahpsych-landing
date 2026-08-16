@@ -298,7 +298,7 @@ export function CollaborationPage() {
                       height: '48px',
                       borderRadius: '50%',
                       background: 'var(--btn-primary-bg)',
-                      color: 'var(--btn-primary-text)',
+                      color: '#f3f4f0',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',

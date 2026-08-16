@@ -132,7 +132,7 @@ export function AssessmentResultsPage() {
                   textAlign: 'center',
                   padding: '40px 20px',
                   borderRadius: '20px',
-                  background: 'rgba(255, 255, 255, 0.3)',
+                  background: 'var(--header-bg)',
                   border: '1px solid var(--border-glass)',
                 }}
               >
@@ -154,10 +154,9 @@ export function AssessmentResultsPage() {
                       key={type}
                       style={{
                         borderRadius: '20px',
-                        background: 'rgba(255, 255, 255, 0.45)',
+                        background: 'var(--header-bg)',
                         border: '1px solid var(--border-glass)',
                         padding: '20px',
-                        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
                       }}
                     >
                       <div
@@ -166,7 +165,7 @@ export function AssessmentResultsPage() {
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           marginBottom: '16px',
-                          borderBottom: '1px dashed rgba(0, 0, 0, 0.08)',
+                          borderBottom: '1px dashed var(--border-glass)',
                           paddingBottom: '12px',
                         }}
                       >
@@ -179,7 +178,7 @@ export function AssessmentResultsPage() {
                             fontWeight: 600,
                             padding: '4px 12px',
                             borderRadius: '999px',
-                            background: 'rgba(168, 197, 192, 0.25)',
+                            background: 'var(--icon-bg)',
                             color: 'var(--text-primary)',
                           }}
                         >
@@ -196,8 +195,8 @@ export function AssessmentResultsPage() {
                               style={{
                                 padding: '14px 16px',
                                 borderRadius: '14px',
-                                background: 'rgba(255, 255, 255, 0.65)',
-                                border: '1px solid rgba(255, 255, 255, 0.8)',
+                                background: 'var(--bg-main)',
+                                border: '1px solid var(--border-glass)',
                               }}
                             >
                               <div
@@ -241,10 +240,10 @@ export function AssessmentResultsPage() {
                                   fontSize: '14px',
                                   lineHeight: '1.7',
                                   color: 'var(--text-primary)',
-                                  background: 'rgba(250, 249, 246, 0.8)',
+                                  background: 'var(--header-bg)',
                                   padding: '10px 14px',
                                   borderRadius: '10px',
-                                  border: '1px solid rgba(0,0,0,0.04)',
+                                  border: '1px solid var(--border-glass)',
                                 }}
                               >
                                 <strong>نتیجه:</strong> {item.result}

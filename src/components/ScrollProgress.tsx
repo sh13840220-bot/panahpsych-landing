@@ -46,8 +46,7 @@ export function ScrollProgress() {
         style={{
           width: `${progress}%`,
           height: '100%',
-          backgroundColor: '#7FA39C',
-          boxShadow: progress > 0 ? '0 0 8px rgba(127, 163, 156, 0.6)' : 'none',
+          backgroundColor: 'var(--color-primary-dark)',
           transition: 'width 100ms ease-out',
         }}
       />

@@ -14,7 +14,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
       title: 'معرفی مستمر مراجعین مناسب',
       desc: 'ارجاع هوشمند مراجعین متناسب با تخصص، متدولوژی و ظرفیت درمانگر',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+        <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
           <circle cx="9" cy="7" r="4" />
           <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -27,7 +27,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
       title: 'تسویه‌حساب منظم و کاملاً شفاف',
       desc: 'سیستم مالی دقیق، بدون ابهام و پرداختی‌های به موقع بر پایه توافقات شفاف',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+        <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
           <rect x="2" y="5" width="20" height="14" rx="2" />
           <line x1="2" y1="10" x2="22" y2="10" />
         </svg>
@@ -38,7 +38,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
       title: 'تمرکز گروهی بر کیفیت خدمات',
       desc: 'پایش مستمر استانداردهای حرفه‌ای و ایجاد بستر هم‌افزایی میان درمانگران',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+        <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
       ),
@@ -48,7 +48,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
       title: 'حمایت از فرهنگ مراجعه به روانشناس',
       desc: 'ارتقای آگاهی جامعه و بسترسازی برای تابوزدایی از خدمات سلامت روان',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+        <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
@@ -59,7 +59,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
       title: 'ساخت برند معتبر در حوزه سلامت روان',
       desc: 'حضور فعال در پلتفرمی حرفه‌ای، علمی و مورد اعتماد آحاد جامعه',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+        <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ),
@@ -75,7 +75,7 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
           <Reveal style={{ width: '100%' }}>
             <div className="horizontal-hub-card glass">
               <div className="hub-icon-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+                <svg style={{ color: '#f3f4f0' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
                   <path d="M12 2v20" />
                   <path d="M12 22l-4-4" />
                   <path d="M12 22l4-4" />
@@ -213,9 +213,6 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
           text-align: center;
           border: 1.5px solid var(--color-primary-dark);
           background: var(--bg-card);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -223,9 +220,8 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
         }
 
         body.dark-mode .horizontal-hub-card {
-          border-color: rgba(211, 221, 208, 0.35);
-          background: rgba(90, 86, 79, 0.85);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+          border-color: var(--border-glass);
+          background: var(--bg-card);
         }
 
         .hub-icon-wrapper {
@@ -283,17 +279,15 @@ export const CypressTreeAchievements: React.FC<AchievementsProps> = ({
           border-radius: 18px;
           border: 1px solid var(--border-glass);
           background: var(--bg-card);
-          backdrop-filter: blur(12px);
           display: flex;
           align-items: center;
           gap: 14px;
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          transition: transform 0.25s ease, border-color 0.25s ease;
         }
 
         .horizontal-achievement-card:hover {
           transform: translateX(-4px);
           border-color: var(--color-primary-dark);
-          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
         }
 
         .card-left-badge {

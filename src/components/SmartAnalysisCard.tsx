@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export type TestType = 'DASS21' | 'GAD7' | 'BDI2' | 'ROSENBERG' | 'MBTI' | 'NEOFFI';
+export type TestType = 'DASS21' | 'GAD7' | 'BDI2' | 'ROSENBERG' | 'MBTI' | 'NEOFFI' | 'CFI' | 'BARON';
 
 interface SmartAnalysisProps {
   testType: TestType;
@@ -10,6 +10,8 @@ interface SmartAnalysisProps {
   // ROSENBERG: { score: number }
   // MBTI: { type: string, percentages?: Record<string, number> }
   // NEOFFI: { scores: Record<string, number> }
+  // CFI: { score: number, alternatives?: number, control?: number, justification?: number }
+  // BARON: { score: number, composites?: Record<string, number>, subscales?: Record<string, number> }
   data: any;
 }
 
@@ -44,58 +46,58 @@ export const CATEGORY_CONFIG: Record<
   'سبک زندگی': {
     label: 'سبک زندگی',
     icon: '🌿',
-    bgClass: 'rgba(216, 237, 222, 0.75)',
-    textClass: '#1E5235',
-    borderClass: 'rgba(167, 212, 183, 0.9)',
+    bgClass: 'var(--badge-inperson-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
   'فعالیت‌های روزانه': {
     label: 'فعالیت‌های روزانه',
     icon: '🗓️',
-    bgClass: 'rgba(224, 242, 254, 0.85)',
-    textClass: '#0369A1',
-    borderClass: 'rgba(186, 230, 253, 0.9)',
+    bgClass: 'var(--icon-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
   'نیاز به مراجعه به متخصص': {
     label: 'نیاز به مراجعه به متخصص',
     icon: '🩺',
-    bgClass: 'rgba(254, 226, 226, 0.9)',
-    textClass: '#991B1B',
-    borderClass: 'rgba(252, 165, 165, 0.9)',
+    bgClass: 'var(--status-pending-bg)',
+    textClass: 'var(--color-accent)',
+    borderClass: 'var(--status-pending-border)',
   },
   'تنظیم هیجان': {
     label: 'تنظیم هیجان',
     icon: '🌊',
-    bgClass: 'rgba(238, 242, 255, 0.9)',
-    textClass: '#3730A3',
-    borderClass: 'rgba(199, 210, 254, 0.9)',
+    bgClass: 'var(--badge-online-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
   'اصلاح شناختی': {
     label: 'اصلاح شناختی',
     icon: '💡',
-    bgClass: 'rgba(254, 243, 199, 0.9)',
-    textClass: '#92400E',
-    borderClass: 'rgba(253, 230, 138, 0.9)',
+    bgClass: 'var(--status-pending-bg)',
+    textClass: 'var(--color-accent)',
+    borderClass: 'var(--status-pending-border)',
   },
   'خودمراقبتی': {
     label: 'خودمراقبتی',
     icon: '🫧',
-    bgClass: 'rgba(236, 253, 245, 0.9)',
-    textClass: '#065F46',
-    borderClass: 'rgba(167, 243, 208, 0.9)',
+    bgClass: 'var(--badge-inperson-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
   'ارتباطات و مرزبندی': {
     label: 'ارتباطات و مرزبندی',
     icon: '🛡️',
-    bgClass: 'rgba(243, 232, 255, 0.9)',
-    textClass: '#6B21A8',
-    borderClass: 'rgba(221, 214, 254, 0.9)',
+    bgClass: 'var(--icon-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
   'رشد فردی': {
     label: 'رشد فردی',
     icon: '🚀',
-    bgClass: 'rgba(255, 241, 242, 0.9)',
-    textClass: '#9F1239',
-    borderClass: 'rgba(254, 205, 211, 0.9)',
+    bgClass: 'var(--badge-online-bg)',
+    textClass: 'var(--text-primary)',
+    borderClass: 'var(--border-glass)',
   },
 };
 
@@ -375,6 +377,123 @@ export function generateSmartAnalysis(testType: TestType, data: any): AnalysisRe
     };
   }
 
+  if (testType === 'CFI') {
+    const score = data?.score ?? 70;
+    const isHigh = score >= 105;
+    const isModerate = score >= 70 && score < 105;
+
+    return {
+      summaryTitle: isHigh
+        ? 'تحلیل تاب‌آوری و انعطاف‌پذیری شناختی بالا'
+        : isModerate
+        ? 'تحلیل انعطاف‌پذیری شناختی متعادل'
+        : 'تحلیل نیاز به تقویت انعطاف‌پذیری شناختی',
+      summaryText: isHigh
+        ? 'شما توانمندی بالایی در بازسازی شناختی و خروج از بن‌بست‌های فکری دارید. در شرایط پرتنش، به جای درماندگی، سناریوها و راه‌حل‌های متعددی را به کار می‌گیرید.'
+        : isModerate
+        ? 'شما در شرایط معمول سازگاری خوبی نشان می‌دهید؛ اما در شرایط بحرانی یا خستگی ممکن است تمایل به تفکر تک‌بعدی پیدا کنید. با تمرین بارش فکری می‌توانید این مهارت را ارتقا دهید.'
+        : 'الگوهای پاسخ شما نشان‌دهنده گرایش به نشخوار فکری و احساس عدم کنترل بر شرایط دشوار است. تقویت مهارت بازسازی شناختی و پذیرش زاویه‌دیدهای جایگزین برای شما بسیار حیاتی است.',
+      recommendations: [
+        {
+          title: 'بازسازی شناختی و چالش با افکار منفی خودکار (CBT)',
+          category: 'اصلاح شناختی',
+          icon: '💡',
+          description:
+            'در لحظات تنش‌زا از خود بپرسید: «آیا زاویه‌دید دیگری برای دیدن این مسئله وجود دارد؟ بدترین، محتمل‌ترین و بهترین سناریو کدام است؟»'
+        },
+        {
+          title: 'تکنیک بارش فکری چندگزینه‌ای قبل از اقدام',
+          category: 'فعالیت‌های روزانه',
+          icon: '📝',
+          description:
+            'هنگام برخورد با چالش‌ها، پیش از هر قضاوتی حداقل ۳ راه‌حل مستقل یادداشت کنید تا ذهن شما در دام گزاره «هیچ راهی نیست» گرفتار نشود.'
+        },
+        {
+          title: 'تفکیک دایره کنترل از دایره دغدغه',
+          category: 'تنظیم هیجان',
+          icon: '🎯',
+          description:
+            'مسائل را به دو دسته کنترل‌پذیر و غیرقابل کنترل تقسیم کنید و توان روانی خود را صرفاً بر بخش‌هایی متمرکز کنید که اقدام عملی روی آن ممکن است.'
+        },
+        {
+          title: 'تمرین دیدگاه‌گیری همدلانه در روابط',
+          category: 'ارتباطات و مرزبندی',
+          icon: '🤝',
+          description:
+            'هنگام بروز اختلاف نظر، دلایل و فرضیات احتمالی طرف مقابل را بدون قضاوت اولیه بازسازی کنید تا انعطاف رفتاری‌تان افزایش یابد.'
+        }
+      ],
+      exerciseTitle: 'تمرین کاربردی: «جدول سه‌ستونه زاویه دید جایگزین»',
+      exerciseSteps: [
+        'یک رویداد استرس‌زا یا ناکام‌کننده هفته اخیر را بالای یک برگه بنویسید.',
+        'در ستون اول، اولین فکر خودکار یا تفسیر منفی خود را با صداقت ثبت کنید.',
+        'در ستون دوم، شواهد واقعی له و علیه این فکر منفی را جدا کنید.',
+        'در ستون سوم، ۲ تا ۳ تفسیر واقع‌بینانه و راه‌حل جایگزین را بازنویسی کنید.'
+      ]
+    };
+  }
+
+  if (testType === 'BARON') {
+    const score = data?.score ?? 300;
+    const isVeryHigh = score >= 380;
+    const isHigh = score >= 320 && score < 380;
+    const isModerate = score >= 250 && score < 320;
+
+    return {
+      summaryTitle: isVeryHigh
+        ? 'تحلیل جامع هوش هیجانی بسیار بالا و بلوغ ارتباطی'
+        : isHigh
+        ? 'تحلیل جامع هوش هیجانی کارآمد و بهینه'
+        : isModerate
+        ? 'تحلیل هوش هیجانی در حد متوسط و بهنجار'
+        : 'تحلیل نیاز به تقویت شایستگی‌های هوش هیجانی',
+      summaryText: isVeryHigh
+        ? 'شما از خودآگاهی عمیق، پختگی عاطفی و مهارت‌های ارتباطی و بین‌فردی برجسته‌ای برخوردارید و توانایی هدایت احساسات در شرایط پرفشار را دارید.'
+        : isHigh
+        ? 'هوش هیجانی شما در سطح مطلوب قرار دارد و در اکثر شرایط قادر به مهار استرس، تصمیم‌گیری واقع‌بینانه و همدلی موثر با دیگران هستید.'
+        : isModerate
+        ? 'شما در تعاملات روزمره عملکرد پایداری دارید، اما در مواجهه با چالش‌ها یا فشارهای شدید ممکن است مدیریت تکانه یا جرئت‌ورزی نیاز به تمرکز بیشتری داشته باشد.'
+        : 'نتایج نشان‌دهنده چالش در مهار هیجانات شدید یا بیان مرزهای بین‌فردی است. با تمرین‌های خودآگاهی و توسعه فردی، هوش هیجانی ارتقاپذیر است.',
+      recommendations: [
+        {
+          title: 'دفترچه ثبت و نام‌گذاری احساسات (Emotion Journaling)',
+          category: 'تنظیم هیجان',
+          icon: '📖',
+          description:
+            'روزانه ۳ بار احساس بدنی و نام دقیق هیجان فعلی‌تان (غم، ناکامی، حسادت، امید و...) را بدون سرکوب یادداشت کنید تا خودآگاهی هیجانی تقویت شود.'
+        },
+        {
+          title: 'تکنیک مکث ۵ ثانیه‌ای در مدیریت خشم و کنترل تکانه',
+          category: 'اصلاح شناختی',
+          icon: '⏸️',
+          description:
+            'قبل از هر واکنش تند کلامی یا پیام عجولانه، ۳ نفس عمیق بکشید و از خود بپرسید: «آیا این واکنش سازنده است یا صرفاً تخلیه تکانشی؟»'
+        },
+        {
+          title: 'تمرین جرئت‌ورزی با فرمول گفتگوی محترمانه',
+          category: 'ارتباطات و مرزبندی',
+          icon: '🗣️',
+          description:
+            'نیازها و مرزهای خود را با فرمول «هنگامی که... من احساس می‌کنم... و ترجیح می‌دهم که...» بدون پرخاشگری یا انفعال بیان کنید.'
+        },
+        {
+          title: 'همدلی فعال و شنیدن بدون پیش‌داوری',
+          category: 'رشد فردی',
+          icon: '👂',
+          description:
+            'در گفتگوهای حساس، ابتدا صحبت طرف مقابل را با زبان خودش بازگو کنید («اگر درست متوجه شده باشم منظور شما این است که...») سپس نظر خود را مطرح کنید.'
+        }
+      ],
+      exerciseTitle: 'تمرین کاربردی: «نقشه تحلیل موقعیت هیجانی (STAR-E)»',
+      exerciseSteps: [
+        'یک موقعیت تنش‌زای اخیر را در نظر بگیرید (Situation).',
+        'هیجانی که در آن لحظه احساس کردید را دقیق مشخص کنید (Emotion).',
+        'واکنشی که نشان دادید را ارزیابی نمایید (Action).',
+        'برای دفعات مشابه آینده، یک اقدام سازنده‌تر با تکیه بر خودآگاهی و همدلی طراحی کنید (Result & Reflection).'
+      ]
+    };
+  }
+
   // NEOFFI
   const scores = data?.scores || {};
   return {
@@ -419,11 +538,8 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
         marginTop: '28px',
         padding: '24px',
         borderRadius: '24px',
-        background: 'rgba(255, 255, 255, 0.65)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.85)',
-        boxShadow: '0 12px 36px rgba(32, 48, 30, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-glass)',
         textAlign: 'right',
         direction: 'rtl',
       }}
@@ -449,16 +565,15 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
               width: '36px',
               height: '36px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #A8C5C0, #7FA39C)',
-              color: '#1F2B1A',
+              background: 'var(--color-primary)',
+              color: 'var(--bg-main)',
               fontSize: '18px',
               fontWeight: 800,
-              boxShadow: '0 2px 8px rgba(127, 163, 156, 0.3)',
             }}
           >
             ✨
           </span>
-          <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#2B2B28', margin: 0 }}>
+          <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
             تحلیل هوشمند و راهکارهای اختصاصی
           </h2>
         </div>
@@ -466,11 +581,11 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
           style={{
             fontSize: '12px',
             fontWeight: 700,
-            background: 'rgba(168, 197, 192, 0.25)',
-            color: '#223018',
+            background: 'var(--icon-bg)',
+            color: 'var(--text-primary)',
             padding: '5px 14px',
             borderRadius: '999px',
-            border: '1px solid rgba(168, 197, 192, 0.4)',
+            border: '1px solid var(--border-glass)',
           }}
         >
           سامانه هوشمند پناه
@@ -480,26 +595,25 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
       {/* Summary Box */}
       <div
         style={{
-          background: 'rgba(238, 241, 230, 0.75)',
+          background: 'var(--header-bg)',
           borderRadius: '16px',
           padding: '18px 20px',
           marginBottom: '22px',
-          borderRight: '4px solid #7FA39C',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+          borderRight: '4px solid var(--color-primary)',
         }}
       >
         <h3
           style={{
             fontSize: '15px',
             fontWeight: 800,
-            color: '#223018',
+            color: 'var(--text-primary)',
             marginTop: 0,
             marginBottom: '8px',
           }}
         >
           {analysis.summaryTitle}
         </h3>
-        <p style={{ fontSize: '14px', color: '#4A5442', lineHeight: 1.75, margin: 0 }}>
+        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.75, margin: 0 }}>
           {analysis.summaryText}
         </p>
       </div>
@@ -511,24 +625,24 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
           display: 'flex',
           gap: '8px',
           marginBottom: '18px',
-          borderBottom: '1px solid rgba(199, 208, 184, 0.5)',
+          borderBottom: '1px solid var(--border-glass)',
           paddingBottom: '12px',
         }}
       >
         <button
           type="button"
           onClick={() => setActiveTab('recs')}
+          className={activeTab === 'recs' ? 'active' : ''}
           style={{
             padding: '8px 18px',
             borderRadius: '999px',
             fontSize: '13.5px',
             fontWeight: 700,
-            border: 'none',
+            border: '1px solid var(--border-glass)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
-            background: activeTab === 'recs' ? '#223018' : 'rgba(238, 241, 230, 0.6)',
-            color: activeTab === 'recs' ? '#FFFFFF' : '#4A5442',
-            boxShadow: activeTab === 'recs' ? '0 4px 12px rgba(34, 48, 24, 0.15)' : 'none',
+            background: activeTab === 'recs' ? 'var(--btn-primary-bg)' : 'var(--header-bg)',
+            color: activeTab === 'recs' ? 'var(--btn-primary-text)' : 'var(--text-secondary)',
           }}
         >
           🌱 راهکارهای پیشنهادی ({analysis.recommendations.length})
@@ -536,17 +650,17 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
         <button
           type="button"
           onClick={() => setActiveTab('exercise')}
+          className={activeTab === 'exercise' ? 'active' : ''}
           style={{
             padding: '8px 18px',
             borderRadius: '999px',
             fontSize: '13.5px',
             fontWeight: 700,
-            border: 'none',
+            border: '1px solid var(--border-glass)',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
-            background: activeTab === 'exercise' ? '#223018' : 'rgba(238, 241, 230, 0.6)',
-            color: activeTab === 'exercise' ? '#FFFFFF' : '#4A5442',
-            boxShadow: activeTab === 'exercise' ? '0 4px 12px rgba(34, 48, 24, 0.15)' : 'none',
+            background: activeTab === 'exercise' ? 'var(--btn-primary-bg)' : 'var(--header-bg)',
+            color: activeTab === 'exercise' ? 'var(--btn-primary-text)' : 'var(--text-secondary)',
           }}
         >
           📝 تمرین عملی کاربردی
@@ -564,30 +678,25 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
             const catConfig = CATEGORY_CONFIG[item.category] || {
               label: item.category,
               icon: item.icon,
-              bgClass: '#EEF1E6',
-              textClass: '#223018',
-              borderClass: '#C7D0B8',
+              bgClass: 'var(--icon-bg)',
+              textClass: 'var(--text-primary)',
+              borderClass: 'var(--border-glass)',
             };
 
             return (
               <div
                 key={idx}
                 style={{
-                  background: item.isHighPriority
-                    ? 'linear-gradient(135deg, rgba(254, 242, 242, 0.95), rgba(255, 255, 255, 0.95))'
-                    : '#FFFFFF',
+                  background: item.isHighPriority ? 'var(--status-pending-bg)' : 'var(--header-bg)',
                   borderRadius: '16px',
                   padding: '18px',
                   border: item.isHighPriority
-                    ? '1.5px solid rgba(252, 165, 165, 0.9)'
-                    : '1px solid rgba(199, 208, 184, 0.6)',
+                    ? '1.5px solid var(--status-pending-border)'
+                    : '1px solid var(--border-glass)',
                   display: 'flex',
                   gap: '16px',
                   alignItems: 'flex-start',
-                  boxShadow: item.isHighPriority
-                    ? '0 6px 20px rgba(220, 38, 38, 0.08)'
-                    : '0 4px 14px rgba(32, 48, 30, 0.03)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  transition: 'transform 0.2s ease',
                 }}
                 className="smart-recommendation-card"
               >
@@ -595,7 +704,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
                 <div
                   style={{
                     fontSize: '26px',
-                    background: item.isHighPriority ? '#FEE2E2' : catConfig.bgClass,
+                    background: item.isHighPriority ? 'var(--status-pending-bg)' : catConfig.bgClass,
                     color: catConfig.textClass,
                     padding: '10px',
                     borderRadius: '14px',
@@ -626,7 +735,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
                       style={{
                         fontSize: '15px',
                         fontWeight: 800,
-                        color: '#2B2B28',
+                        color: 'var(--text-primary)',
                         margin: 0,
                         lineHeight: 1.4,
                       }}
@@ -658,7 +767,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
                   <p
                     style={{
                       fontSize: '13.5px',
-                      color: '#4A5442',
+                      color: 'var(--text-secondary)',
                       margin: 0,
                       lineHeight: 1.65,
                     }}
@@ -676,11 +785,10 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
       <div
         className={`smart-exercise-section ${activeTab !== 'exercise' ? 'hide-on-screen-only' : ''}`}
         style={{
-          background: '#FFFFFF',
+          background: 'var(--header-bg)',
           borderRadius: '18px',
           padding: '22px',
-          border: '1px solid rgba(199, 208, 184, 0.7)',
-          boxShadow: '0 4px 16px rgba(32, 48, 30, 0.03)',
+          border: '1px solid var(--border-glass)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
@@ -689,7 +797,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
             style={{
               fontSize: '16px',
               fontWeight: 800,
-              color: '#223018',
+              color: 'var(--text-primary)',
               margin: 0,
             }}
           >
@@ -701,7 +809,7 @@ export const SmartAnalysisCard: React.FC<SmartAnalysisProps> = ({ testType, data
           style={{
             paddingRight: '22px',
             margin: 0,
-            color: '#4A5442',
+            color: 'var(--text-secondary)',
             fontSize: '14px',
             lineHeight: 1.85,
           }}

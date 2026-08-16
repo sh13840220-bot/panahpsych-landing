@@ -199,7 +199,7 @@ export function NeoFfiQuizPage() {
                 ⚠️ این نسخه برای <strong>خودشناسی و غربالگری اولیه</strong> طراحی شده است و جایگزین ارزیابی مستقیم روان‌شناس نیست.
               </div>
               {!user && (
-                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'rgba(168, 197, 192, 0.15)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
+                <div style={{ marginBottom: '16px', padding: '12px 16px', borderRadius: '14px', background: 'var(--icon-bg)', border: '1px solid var(--border-glass)', fontSize: '14px', color: 'var(--text-primary)', textAlign: 'center' }}>
                   🔒 برای شرکت در آزمون و ذخیره نتیجه در پنل کاربری، باید <strong>وارد حساب کاربری</strong> خود شوید.
                 </div>
               )}
@@ -285,10 +285,10 @@ export function NeoFfiQuizPage() {
               {/* Visible only in print mode */}
               <div className="print-header-brand">
                 <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#20301E' }}>پناه | گزارش ارزیابی روان‌شناختی</h2>
-                  <p style={{ fontSize: '13px', color: '#423828' }}>آزمون پنج عامل بزرگ شخصیت (NEO-FFI)</p>
+                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>پناه | گزارش ارزیابی روان‌شناختی</h2>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>آزمون پنج عامل بزرگ شخصیت (NEO-FFI)</p>
                 </div>
-                <div style={{ fontSize: '12px', color: '#6B6B65', textAlign: 'left' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', textAlign: 'left' }}>
                   تاریخ: {new Date().toLocaleDateString('fa-IR')}
                 </div>
               </div>
